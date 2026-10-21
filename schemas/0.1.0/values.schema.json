@@ -1,0 +1,5326 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ffs:0.1.0:values",
+  "$defs": {
+    "native-Paint": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/native-SolidPaint"
+        },
+        {
+          "$ref": "#/$defs/native-GradientPaint"
+        },
+        {
+          "$ref": "#/$defs/native-ImagePaint"
+        },
+        {
+          "$ref": "#/$defs/native-VideoPaint"
+        },
+        {
+          "$ref": "#/$defs/native-PatternPaint"
+        },
+        {
+          "$ref": "#/$defs/native-ShaderPaint"
+        },
+        {
+          "$ref": "#/$defs/rest-EmojiPaint"
+        }
+      ]
+    },
+    "native-SolidPaint": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SOLID"
+        },
+        "color": {
+          "$ref": "#/$defs/native-RGBWithColorSpace"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "color",
+        "type",
+        "itemId"
+      ]
+    },
+    "native-RGBWithColorSpace": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "srgb",
+                "display-p3"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "hsl",
+                "hsb"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklab"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklch"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "native-ColorWithColorSpace": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "DISPLAY_P3",
+                "SRGB"
+              ],
+              "type": "string"
+            },
+            "r": {
+              "type": "number"
+            },
+            "g": {
+              "type": "number"
+            },
+            "b": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "b",
+            "g",
+            "r",
+            "space"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "type": "string",
+              "const": "HSL"
+            },
+            "h": {
+              "type": "number"
+            },
+            "s": {
+              "type": "number"
+            },
+            "l": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "h",
+            "l",
+            "s",
+            "space"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "type": "string",
+              "const": "HSB"
+            },
+            "h": {
+              "type": "number"
+            },
+            "s": {
+              "type": "number"
+            },
+            "b": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "b",
+            "h",
+            "s",
+            "space"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "type": "string",
+              "const": "OKLAB"
+            },
+            "l": {
+              "type": "number"
+            },
+            "a": {
+              "type": "number"
+            },
+            "b": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "a",
+            "b",
+            "l",
+            "space"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "type": "string",
+              "const": "OKLCH"
+            },
+            "l": {
+              "type": "number"
+            },
+            "c": {
+              "type": "number"
+            },
+            "h": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "c",
+            "h",
+            "l",
+            "space"
+          ]
+        }
+      ]
+    },
+    "native-BlendMode": {
+      "enum": [
+        "COLOR",
+        "COLOR_BURN",
+        "COLOR_DODGE",
+        "DARKEN",
+        "DIFFERENCE",
+        "EXCLUSION",
+        "HARD_LIGHT",
+        "HUE",
+        "LIGHTEN",
+        "LINEAR_BURN",
+        "LINEAR_DODGE",
+        "LUMINOSITY",
+        "MULTIPLY",
+        "NORMAL",
+        "OVERLAY",
+        "PASS_THROUGH",
+        "SATURATION",
+        "SCREEN",
+        "SOFT_LIGHT"
+      ],
+      "type": "string"
+    },
+    "shape-d5cba49b9ab0": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/$defs/native-VariableAlias"
+        }
+      },
+      "additionalProperties": false
+    },
+    "native-VariableAlias": false,
+    "native-GradientPaint": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "GRADIENT_ANGULAR",
+            "GRADIENT_DIAMOND",
+            "GRADIENT_LINEAR",
+            "GRADIENT_RADIAL"
+          ],
+          "type": "string"
+        },
+        "gradientTransform": {
+          "$ref": "#/$defs/native-Transform"
+        },
+        "gradientStops": {
+          "$ref": "#/$defs/native-ReadonlyArray"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "gradientHandlePositions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/native-Vector"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "gradientStops",
+        "type",
+        "itemId"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "gradientTransform"
+          ],
+          "not": {
+            "required": [
+              "gradientHandlePositions"
+            ]
+          }
+        },
+        {
+          "required": [
+            "gradientHandlePositions"
+          ],
+          "not": {
+            "required": [
+              "gradientTransform"
+            ]
+          }
+        }
+      ]
+    },
+    "native-Transform": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "items": false,
+          "minItems": 3,
+          "maxItems": 3
+        }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "native-ReadonlyArray": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-ColorStop"
+      }
+    },
+    "native-ColorStop": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "type": "number"
+        },
+        "color": {
+          "$ref": "#/$defs/native-RGBAWithColorSpace"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "color",
+        "position",
+        "itemId"
+      ]
+    },
+    "native-RGBAWithColorSpace": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "srgb",
+                "display-p3"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "hsl",
+                "hsb"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklab"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklch"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "shape-1e3716eaa03e": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/$defs/native-VariableAlias"
+        }
+      },
+      "additionalProperties": false
+    },
+    "native-ImagePaint": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "IMAGE"
+        },
+        "scaleMode": {
+          "enum": [
+            "CROP",
+            "FILL",
+            "FIT",
+            "TILE",
+            "STRETCH"
+          ],
+          "type": "string"
+        },
+        "imageTransform": {
+          "$ref": "#/$defs/native-Transform_1"
+        },
+        "scalingFactor": {
+          "type": "number"
+        },
+        "rotation": {
+          "type": "number"
+        },
+        "filters": {
+          "$ref": "#/$defs/native-ImageFilters"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "asset": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        },
+        "gifAsset": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "scaleMode",
+        "type",
+        "itemId",
+        "asset"
+      ]
+    },
+    "native-Transform_1": {
+      "$ref": "#/$defs/native-Transform"
+    },
+    "native-ImageFilters": {
+      "$ref": "#/$defs/native-ImageFilters_1"
+    },
+    "native-ImageFilters_1": {
+      "type": "object",
+      "properties": {
+        "exposure": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "contrast": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "saturation": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "temperature": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "tint": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "highlights": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        },
+        "shadows": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "native-VideoPaint": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "VIDEO"
+        },
+        "scaleMode": {
+          "enum": [
+            "CROP",
+            "FILL",
+            "FIT",
+            "TILE"
+          ],
+          "type": "string"
+        },
+        "videoTransform": {
+          "$ref": "#/$defs/native-Transform_1"
+        },
+        "scalingFactor": {
+          "type": "number"
+        },
+        "rotation": {
+          "type": "number"
+        },
+        "filters": {
+          "$ref": "#/$defs/native-ImageFilters"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "asset": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "scaleMode",
+        "type",
+        "itemId",
+        "asset"
+      ]
+    },
+    "native-PatternPaint": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "PATTERN"
+        },
+        "tileType": {
+          "enum": [
+            "HORIZONTAL_HEXAGONAL",
+            "RECTANGULAR",
+            "VERTICAL_HEXAGONAL"
+          ],
+          "type": "string"
+        },
+        "scalingFactor": {
+          "type": "number"
+        },
+        "spacing": {
+          "$ref": "#/$defs/native-Vector"
+        },
+        "horizontalAlignment": {
+          "enum": [
+            "CENTER",
+            "END",
+            "START"
+          ],
+          "type": "string"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "asset": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        },
+        "verticalAlignment": {
+          "enum": [
+            "START",
+            "CENTER",
+            "END"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "horizontalAlignment",
+        "scalingFactor",
+        "spacing",
+        "tileType",
+        "type",
+        "itemId",
+        "asset"
+      ]
+    },
+    "native-Vector": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y"
+      ]
+    },
+    "native-ShaderPaint": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SHADER"
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/native-ShaderPropertyValue"
+          }
+        },
+        "propertyMetadata": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/native-ShaderPropertyDefinition"
+          }
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "asset": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "itemId",
+        "asset"
+      ]
+    },
+    "native-ShaderPropertyValue": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/native-RGB"
+        },
+        {
+          "$ref": "#/$defs/native-RGBA"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "y"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "x2": {
+              "type": "number"
+            },
+            "y2": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "x2",
+            "y",
+            "y2"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "radius": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "radius",
+            "x",
+            "y"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "radius": {
+              "type": "number",
+              "minimum": 0
+            },
+            "angle": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "angle",
+            "radius",
+            "x",
+            "y"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "color": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/native-RGB"
+                },
+                {
+                  "$ref": "#/$defs/native-RGBA"
+                },
+                {
+                  "$ref": "#/$defs/native-VariableAlias"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "color",
+            "x",
+            "y"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "stops": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "position": {
+                    "type": "number"
+                  },
+                  "color": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/native-RGB"
+                      },
+                      {
+                        "$ref": "#/$defs/native-RGBA"
+                      },
+                      {
+                        "$ref": "#/$defs/native-VariableAlias"
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "color",
+                  "position"
+                ]
+              }
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "stops"
+          ]
+        },
+        {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        }
+      ]
+    },
+    "native-RGB": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "srgb",
+                "display-p3"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "hsl",
+                "hsb"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklab"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklch"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "native-RGBA": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "srgb",
+                "display-p3"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "hsl",
+                "hsb"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklab"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklch"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "native-ShaderPropertyDefinition": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "BOOLEAN",
+            "CIRCLE",
+            "CIRCLE_POINT",
+            "COLOR",
+            "COLOR_POINT",
+            "GRADIENT",
+            "IMAGE",
+            "INSTANCE_SWAP",
+            "LINE",
+            "NUMBER",
+            "POINT",
+            "SLOT",
+            "TEXT"
+          ],
+          "type": "string"
+        },
+        "defaultValue": {
+          "$ref": "#/$defs/native-ShaderPropertyValue_1"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    "native-ShaderPropertyValue_1": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/native-RGB"
+        },
+        {
+          "$ref": "#/$defs/native-RGBA"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "y"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "x2": {
+              "type": "number"
+            },
+            "y2": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "x",
+            "x2",
+            "y",
+            "y2"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "radius": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "radius",
+            "x",
+            "y"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "radius": {
+              "type": "number",
+              "minimum": 0
+            },
+            "angle": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "angle",
+            "radius",
+            "x",
+            "y"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "color": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/native-RGB"
+                },
+                {
+                  "$ref": "#/$defs/native-RGBA"
+                },
+                {
+                  "$ref": "#/$defs/native-VariableAlias"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "color",
+            "x",
+            "y"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "stops": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "position": {
+                    "type": "number"
+                  },
+                  "color": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/$defs/native-RGB"
+                      },
+                      {
+                        "$ref": "#/$defs/native-RGBA"
+                      },
+                      {
+                        "$ref": "#/$defs/native-VariableAlias"
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "color",
+                  "position"
+                ]
+              }
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "stops"
+          ]
+        },
+        {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        }
+      ]
+    },
+    "native-Effect": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/native-DropShadowEffect"
+        },
+        {
+          "$ref": "#/$defs/native-InnerShadowEffect"
+        },
+        {
+          "$ref": "#/$defs/native-BlurEffectNormal"
+        },
+        {
+          "$ref": "#/$defs/native-BlurEffectProgressive"
+        },
+        {
+          "$ref": "#/$defs/native-NoiseEffectMonotone"
+        },
+        {
+          "$ref": "#/$defs/native-NoiseEffectDuotone"
+        },
+        {
+          "$ref": "#/$defs/native-NoiseEffectMultitone"
+        },
+        {
+          "$ref": "#/$defs/native-TextureEffect"
+        },
+        {
+          "$ref": "#/$defs/native-GlassEffect"
+        },
+        {
+          "$ref": "#/$defs/native-ShaderEffect"
+        }
+      ]
+    },
+    "native-DropShadowEffect": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "DROP_SHADOW"
+        },
+        "color": {
+          "$ref": "#/$defs/native-RGBAWithColorSpace"
+        },
+        "offset": {
+          "$ref": "#/$defs/native-Vector"
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "spread": {
+          "type": "number"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode_1"
+        },
+        "showShadowBehindNode": {
+          "type": "boolean"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "blendMode",
+        "color",
+        "offset",
+        "radius",
+        "type",
+        "visible",
+        "itemId"
+      ]
+    },
+    "native-BlendMode_1": {
+      "enum": [
+        "COLOR",
+        "COLOR_BURN",
+        "COLOR_DODGE",
+        "DARKEN",
+        "DIFFERENCE",
+        "EXCLUSION",
+        "HARD_LIGHT",
+        "HUE",
+        "LIGHTEN",
+        "LINEAR_BURN",
+        "LINEAR_DODGE",
+        "LUMINOSITY",
+        "MULTIPLY",
+        "NORMAL",
+        "OVERLAY",
+        "PASS_THROUGH",
+        "SATURATION",
+        "SCREEN",
+        "SOFT_LIGHT"
+      ],
+      "type": "string"
+    },
+    "shape-ea2b074af277": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "radius": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "spread": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "offsetX": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "offsetY": {
+          "$ref": "#/$defs/native-VariableAlias"
+        }
+      },
+      "additionalProperties": false
+    },
+    "native-InnerShadowEffect": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "INNER_SHADOW"
+        },
+        "color": {
+          "$ref": "#/$defs/native-RGBAWithColorSpace"
+        },
+        "offset": {
+          "$ref": "#/$defs/native-Vector"
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "spread": {
+          "type": "number"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode_1"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "blendMode",
+        "color",
+        "offset",
+        "radius",
+        "type",
+        "visible",
+        "itemId"
+      ]
+    },
+    "shape-a67166a27c64": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "radius": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "spread": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "offsetX": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "offsetY": {
+          "$ref": "#/$defs/native-VariableAlias"
+        }
+      },
+      "additionalProperties": false
+    },
+    "native-BlurEffectNormal": {
+      "type": "object",
+      "properties": {
+        "blurType": {
+          "type": "string",
+          "const": "NORMAL"
+        },
+        "type": {
+          "enum": [
+            "BACKGROUND_BLUR",
+            "LAYER_BLUR"
+          ],
+          "type": "string"
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "blurType",
+        "radius",
+        "type",
+        "visible",
+        "itemId"
+      ]
+    },
+    "native-VariableAlias_1": false,
+    "native-BlurEffectProgressive": {
+      "type": "object",
+      "properties": {
+        "blurType": {
+          "type": "string",
+          "const": "PROGRESSIVE"
+        },
+        "startRadius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "startOffset": {
+          "$ref": "#/$defs/native-Vector"
+        },
+        "endOffset": {
+          "$ref": "#/$defs/native-Vector"
+        },
+        "type": {
+          "enum": [
+            "BACKGROUND_BLUR",
+            "LAYER_BLUR"
+          ],
+          "type": "string"
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "blurType",
+        "endOffset",
+        "radius",
+        "startOffset",
+        "startRadius",
+        "type",
+        "visible",
+        "itemId"
+      ]
+    },
+    "native-NoiseEffectMonotone": {
+      "type": "object",
+      "properties": {
+        "noiseType": {
+          "type": "string",
+          "const": "MONOTONE"
+        },
+        "type": {
+          "type": "string",
+          "const": "NOISE"
+        },
+        "color": {
+          "$ref": "#/$defs/native-RGBAWithColorSpace"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode_1"
+        },
+        "noiseSize": {
+          "type": "number",
+          "minimum": 0
+        },
+        "noiseSizeVector": {
+          "$ref": "#/$defs/native-Vector_1"
+        },
+        "density": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "blendMode",
+        "color",
+        "density",
+        "noiseSize",
+        "noiseType",
+        "type",
+        "visible",
+        "itemId"
+      ]
+    },
+    "native-Vector_1": {
+      "$ref": "#/$defs/native-Vector"
+    },
+    "native-NoiseEffectDuotone": {
+      "type": "object",
+      "properties": {
+        "noiseType": {
+          "type": "string",
+          "const": "DUOTONE"
+        },
+        "secondaryColor": {
+          "$ref": "#/$defs/native-RGBAWithColorSpace"
+        },
+        "type": {
+          "type": "string",
+          "const": "NOISE"
+        },
+        "color": {
+          "$ref": "#/$defs/native-RGBAWithColorSpace"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode_1"
+        },
+        "noiseSize": {
+          "type": "number",
+          "minimum": 0
+        },
+        "noiseSizeVector": {
+          "$ref": "#/$defs/native-Vector_1"
+        },
+        "density": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "blendMode",
+        "color",
+        "density",
+        "noiseSize",
+        "noiseType",
+        "secondaryColor",
+        "type",
+        "visible",
+        "itemId"
+      ]
+    },
+    "native-NoiseEffectMultitone": {
+      "type": "object",
+      "properties": {
+        "noiseType": {
+          "type": "string",
+          "const": "MULTITONE"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "type": {
+          "type": "string",
+          "const": "NOISE"
+        },
+        "color": {
+          "$ref": "#/$defs/native-RGBAWithColorSpace"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode_1"
+        },
+        "noiseSize": {
+          "type": "number",
+          "minimum": 0
+        },
+        "noiseSizeVector": {
+          "$ref": "#/$defs/native-Vector_1"
+        },
+        "density": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "blendMode",
+        "color",
+        "density",
+        "noiseSize",
+        "noiseType",
+        "opacity",
+        "type",
+        "visible",
+        "itemId"
+      ]
+    },
+    "native-TextureEffect": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "TEXTURE"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "noiseSize": {
+          "type": "number",
+          "minimum": 0
+        },
+        "noiseSizeVector": {
+          "$ref": "#/$defs/native-Vector_1"
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "clipToShape": {
+          "type": "boolean"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "clipToShape",
+        "noiseSize",
+        "radius",
+        "type",
+        "visible",
+        "itemId"
+      ]
+    },
+    "native-GlassEffect": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "GLASS"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "lightIntensity": {
+          "type": "number"
+        },
+        "lightAngle": {
+          "type": "number"
+        },
+        "refraction": {
+          "type": "number"
+        },
+        "depth": {
+          "type": "number"
+        },
+        "dispersion": {
+          "type": "number"
+        },
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "depth",
+        "dispersion",
+        "lightAngle",
+        "lightIntensity",
+        "radius",
+        "refraction",
+        "type",
+        "visible",
+        "itemId"
+      ]
+    },
+    "native-ShaderEffect": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SHADER"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/native-ShaderPropertyValue"
+          }
+        },
+        "propertyMetadata": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/native-ShaderPropertyDefinition"
+          }
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "asset": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "visible",
+        "itemId",
+        "asset"
+      ]
+    },
+    "native-LayoutGrid": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/native-RowsColsLayoutGrid"
+        },
+        {
+          "$ref": "#/$defs/native-GridLayoutGrid"
+        }
+      ]
+    },
+    "native-RowsColsLayoutGrid": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "enum": [
+            "COLUMNS",
+            "ROWS"
+          ],
+          "type": "string"
+        },
+        "alignment": {
+          "enum": [
+            "CENTER",
+            "MAX",
+            "MIN",
+            "STRETCH"
+          ],
+          "type": "string"
+        },
+        "gutterSize": {
+          "type": "number",
+          "minimum": 0
+        },
+        "count": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "const": "auto"
+            }
+          ]
+        },
+        "sectionSize": {
+          "type": "number",
+          "minimum": 0
+        },
+        "offset": {
+          "type": "number"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "color": {
+          "$ref": "#/$defs/native-RGBA_1"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "alignment",
+        "count",
+        "gutterSize",
+        "pattern",
+        "itemId"
+      ]
+    },
+    "native-RGBA_1": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "srgb",
+                "display-p3"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "hsl",
+                "hsb"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklab"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklch"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "shape-933d64d68933": {
+      "type": "object",
+      "properties": {
+        "sectionSize": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "count": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "offset": {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        "gutterSize": {
+          "$ref": "#/$defs/native-VariableAlias"
+        }
+      },
+      "additionalProperties": false
+    },
+    "native-GridLayoutGrid": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "const": "GRID"
+        },
+        "sectionSize": {
+          "type": "number",
+          "minimum": 0
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "color": {
+          "$ref": "#/$defs/native-RGBA_1"
+        },
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pattern",
+        "sectionSize",
+        "itemId"
+      ]
+    },
+    "shape-710e150a78fa": {
+      "type": "object",
+      "properties": {
+        "fontSize": {
+          "type": "number",
+          "minimum": 1
+        },
+        "fontName": {
+          "$ref": "#/$defs/native-FontName"
+        },
+        "textCase": {
+          "$ref": "#/$defs/native-TextCase"
+        },
+        "textDecoration": {
+          "$ref": "#/$defs/native-TextDecoration"
+        },
+        "letterSpacing": {
+          "$ref": "#/$defs/native-LetterSpacing"
+        },
+        "lineHeight": {
+          "$ref": "#/$defs/native-LineHeight"
+        },
+        "leadingTrim": {
+          "$ref": "#/$defs/native-LeadingTrim"
+        },
+        "paragraphIndent": {
+          "type": "number"
+        },
+        "paragraphSpacing": {
+          "type": "number"
+        },
+        "listSpacing": {
+          "type": "number"
+        },
+        "hangingPunctuation": {
+          "type": "boolean"
+        },
+        "hangingList": {
+          "type": "boolean"
+        },
+        "textWrapStyle": {
+          "$ref": "#/$defs/native-TextWrapStyle"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "fontName",
+        "fontSize",
+        "hangingList",
+        "hangingPunctuation",
+        "leadingTrim",
+        "letterSpacing",
+        "lineHeight",
+        "listSpacing",
+        "paragraphIndent",
+        "paragraphSpacing",
+        "textCase",
+        "textDecoration",
+        "textWrapStyle"
+      ]
+    },
+    "native-FontName": {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "variationSettings": {
+          "$ref": "#/$defs/native-FontVariationSettings"
+        },
+        "asset": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "family",
+        "style"
+      ]
+    },
+    "native-FontVariationSettings": {
+      "$ref": "#/$defs/native-FontVariationSettings_1"
+    },
+    "native-FontVariationSettings_1": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      },
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[ -~]{4}$"
+      }
+    },
+    "native-TextCase": {
+      "enum": [
+        "LOWER",
+        "ORIGINAL",
+        "SMALL_CAPS",
+        "SMALL_CAPS_FORCED",
+        "TITLE",
+        "UPPER"
+      ],
+      "type": "string"
+    },
+    "native-TextDecoration": {
+      "enum": [
+        "NONE",
+        "STRIKETHROUGH",
+        "UNDERLINE"
+      ],
+      "type": "string"
+    },
+    "native-LetterSpacing": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "enum": [
+            "PERCENT",
+            "PIXELS"
+          ],
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    "native-LineHeight": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "enum": [
+                "PERCENT",
+                "PIXELS"
+              ],
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "unit",
+            "value"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "unit": {
+              "type": "string",
+              "const": "AUTO"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "unit"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number",
+              "minimum": 0
+            },
+            "unit": {
+              "const": "INTRINSIC_PERCENT"
+            }
+          },
+          "required": [
+            "value",
+            "unit"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "native-LeadingTrim": {
+      "enum": [
+        "CAP_HEIGHT",
+        "NONE"
+      ],
+      "type": "string"
+    },
+    "native-TextWrapStyle": {
+      "enum": [
+        "AUTO",
+        "BALANCE",
+        "PRETTY"
+      ],
+      "type": "string"
+    },
+    "native-StyleData": {
+      "$ref": "#/$defs/shape-710e150a78fa"
+    },
+    "native-TextPreset": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "fontSize": {
+          "type": "number",
+          "minimum": 1
+        },
+        "fontName": {
+          "$ref": "#/$defs/native-FontName"
+        },
+        "fontWeight": {
+          "type": "number"
+        },
+        "textCase": {
+          "enum": [
+            "LOWER",
+            "ORIGINAL",
+            "SMALL_CAPS",
+            "SMALL_CAPS_FORCED",
+            "TITLE",
+            "UPPER"
+          ],
+          "type": "string"
+        },
+        "textDecoration": {
+          "enum": [
+            "NONE",
+            "STRIKETHROUGH",
+            "UNDERLINE"
+          ],
+          "type": "string"
+        },
+        "textDecorationStyle": {
+          "anyOf": [
+            {
+              "enum": [
+                "DOTTED",
+                "SOLID",
+                "WAVY"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "textDecorationOffset": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "enum": [
+                    "PERCENT",
+                    "PIXELS"
+                  ],
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "unit",
+                "value"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "const": "AUTO"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "unit"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "textDecorationThickness": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "enum": [
+                    "PERCENT",
+                    "PIXELS"
+                  ],
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "unit",
+                "value"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "const": "AUTO"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "unit"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "textDecorationColor": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "$ref": "#/$defs/native-SolidPaint"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "value"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "const": "AUTO"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "value"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "textDecorationSkipInk": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "letterSpacing": {
+          "$ref": "#/$defs/native-LetterSpacing"
+        },
+        "lineHeight": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "enum": [
+                    "PERCENT",
+                    "PIXELS"
+                  ],
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "unit",
+                "value"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "const": "AUTO"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "unit"
+              ]
+            }
+          ]
+        },
+        "leadingTrim": {
+          "enum": [
+            "CAP_HEIGHT",
+            "NONE"
+          ],
+          "type": "string"
+        },
+        "paragraphIndent": {
+          "type": "number"
+        },
+        "paragraphSpacing": {
+          "type": "number"
+        },
+        "listSpacing": {
+          "type": "number"
+        },
+        "hangingPunctuation": {
+          "type": "boolean"
+        },
+        "hangingList": {
+          "type": "boolean"
+        },
+        "textWrapStyle": {
+          "enum": [
+            "AUTO",
+            "BALANCE",
+            "PRETTY"
+          ],
+          "type": "string"
+        },
+        "openTypeFeatures": {
+          "$ref": "#/$defs/shape-44a52e1f88fb"
+        },
+        "fontStyle": {
+          "$ref": "#/$defs/native-FontStyle"
+        },
+        "textAlignHorizontal": {
+          "enum": [
+            "CENTER",
+            "JUSTIFIED",
+            "LEFT",
+            "RIGHT"
+          ],
+          "type": "string"
+        },
+        "textAlignVertical": {
+          "enum": [
+            "BOTTOM",
+            "CENTER",
+            "TOP"
+          ],
+          "type": "string"
+        },
+        "textAutoResize": {
+          "enum": [
+            "HEIGHT",
+            "NONE",
+            "TRUNCATE",
+            "WIDTH_AND_HEIGHT"
+          ],
+          "type": "string"
+        },
+        "textTruncation": {
+          "enum": [
+            "DISABLED",
+            "ENDING"
+          ],
+          "type": "string"
+        },
+        "maxLines": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "listOptions": {
+          "$ref": "#/$defs/native-TextListOptions"
+        },
+        "indentation": {
+          "type": "number"
+        },
+        "fontPostScriptName": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "shape-44a52e1f88fb": {
+      "type": "object",
+      "properties": {
+        "PCAP": {
+          "type": "boolean"
+        },
+        "C2PC": {
+          "type": "boolean"
+        },
+        "CASE": {
+          "type": "boolean"
+        },
+        "CPSP": {
+          "type": "boolean"
+        },
+        "TITL": {
+          "type": "boolean"
+        },
+        "UNIC": {
+          "type": "boolean"
+        },
+        "ZERO": {
+          "type": "boolean"
+        },
+        "SINF": {
+          "type": "boolean"
+        },
+        "ORDN": {
+          "type": "boolean"
+        },
+        "AFRC": {
+          "type": "boolean"
+        },
+        "DNOM": {
+          "type": "boolean"
+        },
+        "NUMR": {
+          "type": "boolean"
+        },
+        "LIGA": {
+          "type": "boolean"
+        },
+        "CLIG": {
+          "type": "boolean"
+        },
+        "DLIG": {
+          "type": "boolean"
+        },
+        "HLIG": {
+          "type": "boolean"
+        },
+        "RLIG": {
+          "type": "boolean"
+        },
+        "AALT": {
+          "type": "boolean"
+        },
+        "CALT": {
+          "type": "boolean"
+        },
+        "RCLT": {
+          "type": "boolean"
+        },
+        "SALT": {
+          "type": "boolean"
+        },
+        "RVRN": {
+          "type": "boolean"
+        },
+        "VERT": {
+          "type": "boolean"
+        },
+        "SWSH": {
+          "type": "boolean"
+        },
+        "CSWH": {
+          "type": "boolean"
+        },
+        "NALT": {
+          "type": "boolean"
+        },
+        "CCMP": {
+          "type": "boolean"
+        },
+        "STCH": {
+          "type": "boolean"
+        },
+        "HIST": {
+          "type": "boolean"
+        },
+        "SIZE": {
+          "type": "boolean"
+        },
+        "ORNM": {
+          "type": "boolean"
+        },
+        "ITAL": {
+          "type": "boolean"
+        },
+        "RAND": {
+          "type": "boolean"
+        },
+        "DTLS": {
+          "type": "boolean"
+        },
+        "FLAC": {
+          "type": "boolean"
+        },
+        "MGRK": {
+          "type": "boolean"
+        },
+        "SSTY": {
+          "type": "boolean"
+        },
+        "KERN": {
+          "type": "boolean"
+        },
+        "FWID": {
+          "type": "boolean"
+        },
+        "HWID": {
+          "type": "boolean"
+        },
+        "HALT": {
+          "type": "boolean"
+        },
+        "TWID": {
+          "type": "boolean"
+        },
+        "QWID": {
+          "type": "boolean"
+        },
+        "PWID": {
+          "type": "boolean"
+        },
+        "JUST": {
+          "type": "boolean"
+        },
+        "LFBD": {
+          "type": "boolean"
+        },
+        "OPBD": {
+          "type": "boolean"
+        },
+        "RTBD": {
+          "type": "boolean"
+        },
+        "PALT": {
+          "type": "boolean"
+        },
+        "PKNA": {
+          "type": "boolean"
+        },
+        "LTRA": {
+          "type": "boolean"
+        },
+        "LTRM": {
+          "type": "boolean"
+        },
+        "RTLA": {
+          "type": "boolean"
+        },
+        "RTLM": {
+          "type": "boolean"
+        },
+        "ABRV": {
+          "type": "boolean"
+        },
+        "ABVM": {
+          "type": "boolean"
+        },
+        "ABVS": {
+          "type": "boolean"
+        },
+        "VALT": {
+          "type": "boolean"
+        },
+        "VHAL": {
+          "type": "boolean"
+        },
+        "BLWF": {
+          "type": "boolean"
+        },
+        "BLWM": {
+          "type": "boolean"
+        },
+        "BLWS": {
+          "type": "boolean"
+        },
+        "AKHN": {
+          "type": "boolean"
+        },
+        "CJCT": {
+          "type": "boolean"
+        },
+        "CFAR": {
+          "type": "boolean"
+        },
+        "CPCT": {
+          "type": "boolean"
+        },
+        "CURS": {
+          "type": "boolean"
+        },
+        "DIST": {
+          "type": "boolean"
+        },
+        "EXPT": {
+          "type": "boolean"
+        },
+        "FALT": {
+          "type": "boolean"
+        },
+        "FINA": {
+          "type": "boolean"
+        },
+        "FIN2": {
+          "type": "boolean"
+        },
+        "FIN3": {
+          "type": "boolean"
+        },
+        "HALF": {
+          "type": "boolean"
+        },
+        "HALN": {
+          "type": "boolean"
+        },
+        "HKNA": {
+          "type": "boolean"
+        },
+        "HNGL": {
+          "type": "boolean"
+        },
+        "HOJO": {
+          "type": "boolean"
+        },
+        "INIT": {
+          "type": "boolean"
+        },
+        "ISOL": {
+          "type": "boolean"
+        },
+        "JP78": {
+          "type": "boolean"
+        },
+        "JP83": {
+          "type": "boolean"
+        },
+        "JP90": {
+          "type": "boolean"
+        },
+        "JP04": {
+          "type": "boolean"
+        },
+        "LJMO": {
+          "type": "boolean"
+        },
+        "LOCL": {
+          "type": "boolean"
+        },
+        "MARK": {
+          "type": "boolean"
+        },
+        "MEDI": {
+          "type": "boolean"
+        },
+        "MED2": {
+          "type": "boolean"
+        },
+        "MKMK": {
+          "type": "boolean"
+        },
+        "NLCK": {
+          "type": "boolean"
+        },
+        "NUKT": {
+          "type": "boolean"
+        },
+        "PREF": {
+          "type": "boolean"
+        },
+        "PRES": {
+          "type": "boolean"
+        },
+        "VPAL": {
+          "type": "boolean"
+        },
+        "PSTF": {
+          "type": "boolean"
+        },
+        "PSTS": {
+          "type": "boolean"
+        },
+        "RKRF": {
+          "type": "boolean"
+        },
+        "RPHF": {
+          "type": "boolean"
+        },
+        "RUBY": {
+          "type": "boolean"
+        },
+        "SMPL": {
+          "type": "boolean"
+        },
+        "TJMO": {
+          "type": "boolean"
+        },
+        "TNAM": {
+          "type": "boolean"
+        },
+        "TRAD": {
+          "type": "boolean"
+        },
+        "VATU": {
+          "type": "boolean"
+        },
+        "VJMO": {
+          "type": "boolean"
+        },
+        "VKNA": {
+          "type": "boolean"
+        },
+        "VKRN": {
+          "type": "boolean"
+        },
+        "VRTR": {
+          "type": "boolean"
+        },
+        "VRT2": {
+          "type": "boolean"
+        },
+        "SS01": {
+          "type": "boolean"
+        },
+        "SS02": {
+          "type": "boolean"
+        },
+        "SS03": {
+          "type": "boolean"
+        },
+        "SS04": {
+          "type": "boolean"
+        },
+        "SS05": {
+          "type": "boolean"
+        },
+        "SS06": {
+          "type": "boolean"
+        },
+        "SS07": {
+          "type": "boolean"
+        },
+        "SS08": {
+          "type": "boolean"
+        },
+        "SS09": {
+          "type": "boolean"
+        },
+        "SS10": {
+          "type": "boolean"
+        },
+        "SS11": {
+          "type": "boolean"
+        },
+        "SS12": {
+          "type": "boolean"
+        },
+        "SS13": {
+          "type": "boolean"
+        },
+        "SS14": {
+          "type": "boolean"
+        },
+        "SS15": {
+          "type": "boolean"
+        },
+        "SS16": {
+          "type": "boolean"
+        },
+        "SS17": {
+          "type": "boolean"
+        },
+        "SS18": {
+          "type": "boolean"
+        },
+        "SS19": {
+          "type": "boolean"
+        },
+        "SS20": {
+          "type": "boolean"
+        },
+        "CV01": {
+          "type": "boolean"
+        },
+        "CV02": {
+          "type": "boolean"
+        },
+        "CV03": {
+          "type": "boolean"
+        },
+        "CV04": {
+          "type": "boolean"
+        },
+        "CV05": {
+          "type": "boolean"
+        },
+        "CV06": {
+          "type": "boolean"
+        },
+        "CV07": {
+          "type": "boolean"
+        },
+        "CV08": {
+          "type": "boolean"
+        },
+        "CV09": {
+          "type": "boolean"
+        },
+        "CV10": {
+          "type": "boolean"
+        },
+        "CV11": {
+          "type": "boolean"
+        },
+        "CV12": {
+          "type": "boolean"
+        },
+        "CV13": {
+          "type": "boolean"
+        },
+        "CV14": {
+          "type": "boolean"
+        },
+        "CV15": {
+          "type": "boolean"
+        },
+        "CV16": {
+          "type": "boolean"
+        },
+        "CV17": {
+          "type": "boolean"
+        },
+        "CV18": {
+          "type": "boolean"
+        },
+        "CV19": {
+          "type": "boolean"
+        },
+        "CV20": {
+          "type": "boolean"
+        },
+        "CV21": {
+          "type": "boolean"
+        },
+        "CV22": {
+          "type": "boolean"
+        },
+        "CV23": {
+          "type": "boolean"
+        },
+        "CV24": {
+          "type": "boolean"
+        },
+        "CV25": {
+          "type": "boolean"
+        },
+        "CV26": {
+          "type": "boolean"
+        },
+        "CV27": {
+          "type": "boolean"
+        },
+        "CV28": {
+          "type": "boolean"
+        },
+        "CV29": {
+          "type": "boolean"
+        },
+        "CV30": {
+          "type": "boolean"
+        },
+        "CV31": {
+          "type": "boolean"
+        },
+        "CV32": {
+          "type": "boolean"
+        },
+        "CV33": {
+          "type": "boolean"
+        },
+        "CV34": {
+          "type": "boolean"
+        },
+        "CV35": {
+          "type": "boolean"
+        },
+        "CV36": {
+          "type": "boolean"
+        },
+        "CV37": {
+          "type": "boolean"
+        },
+        "CV38": {
+          "type": "boolean"
+        },
+        "CV39": {
+          "type": "boolean"
+        },
+        "CV40": {
+          "type": "boolean"
+        },
+        "CV41": {
+          "type": "boolean"
+        },
+        "CV42": {
+          "type": "boolean"
+        },
+        "CV43": {
+          "type": "boolean"
+        },
+        "CV44": {
+          "type": "boolean"
+        },
+        "CV45": {
+          "type": "boolean"
+        },
+        "CV46": {
+          "type": "boolean"
+        },
+        "CV47": {
+          "type": "boolean"
+        },
+        "CV48": {
+          "type": "boolean"
+        },
+        "CV49": {
+          "type": "boolean"
+        },
+        "CV50": {
+          "type": "boolean"
+        },
+        "CV51": {
+          "type": "boolean"
+        },
+        "CV52": {
+          "type": "boolean"
+        },
+        "CV53": {
+          "type": "boolean"
+        },
+        "CV54": {
+          "type": "boolean"
+        },
+        "CV55": {
+          "type": "boolean"
+        },
+        "CV56": {
+          "type": "boolean"
+        },
+        "CV57": {
+          "type": "boolean"
+        },
+        "CV58": {
+          "type": "boolean"
+        },
+        "CV59": {
+          "type": "boolean"
+        },
+        "CV60": {
+          "type": "boolean"
+        },
+        "CV61": {
+          "type": "boolean"
+        },
+        "CV62": {
+          "type": "boolean"
+        },
+        "CV63": {
+          "type": "boolean"
+        },
+        "CV64": {
+          "type": "boolean"
+        },
+        "CV65": {
+          "type": "boolean"
+        },
+        "CV66": {
+          "type": "boolean"
+        },
+        "CV67": {
+          "type": "boolean"
+        },
+        "CV68": {
+          "type": "boolean"
+        },
+        "CV69": {
+          "type": "boolean"
+        },
+        "CV70": {
+          "type": "boolean"
+        },
+        "CV71": {
+          "type": "boolean"
+        },
+        "CV72": {
+          "type": "boolean"
+        },
+        "CV73": {
+          "type": "boolean"
+        },
+        "CV74": {
+          "type": "boolean"
+        },
+        "CV75": {
+          "type": "boolean"
+        },
+        "CV76": {
+          "type": "boolean"
+        },
+        "CV77": {
+          "type": "boolean"
+        },
+        "CV78": {
+          "type": "boolean"
+        },
+        "CV79": {
+          "type": "boolean"
+        },
+        "CV80": {
+          "type": "boolean"
+        },
+        "CV81": {
+          "type": "boolean"
+        },
+        "CV82": {
+          "type": "boolean"
+        },
+        "CV83": {
+          "type": "boolean"
+        },
+        "CV84": {
+          "type": "boolean"
+        },
+        "CV85": {
+          "type": "boolean"
+        },
+        "CV86": {
+          "type": "boolean"
+        },
+        "CV87": {
+          "type": "boolean"
+        },
+        "CV88": {
+          "type": "boolean"
+        },
+        "CV89": {
+          "type": "boolean"
+        },
+        "CV90": {
+          "type": "boolean"
+        },
+        "CV91": {
+          "type": "boolean"
+        },
+        "CV92": {
+          "type": "boolean"
+        },
+        "CV93": {
+          "type": "boolean"
+        },
+        "CV94": {
+          "type": "boolean"
+        },
+        "CV95": {
+          "type": "boolean"
+        },
+        "CV96": {
+          "type": "boolean"
+        },
+        "CV97": {
+          "type": "boolean"
+        },
+        "CV98": {
+          "type": "boolean"
+        },
+        "CV99": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "native-FontStyle": {
+      "enum": [
+        "ITALIC",
+        "REGULAR"
+      ],
+      "type": "string"
+    },
+    "native-TextListOptions": {
+      "$ref": "#/$defs/native-TextListOptions_1"
+    },
+    "shape-1ffec73ad009": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "NONE",
+            "ORDERED",
+            "UNORDERED"
+          ],
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ]
+    },
+    "native-TextListOptions_1": {
+      "$ref": "#/$defs/shape-1ffec73ad009"
+    },
+    "native-StrokePreset": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "strokes": {
+          "$ref": "#/$defs/native-ReadonlyArray_1"
+        },
+        "strokeWeight": {
+          "type": "number",
+          "minimum": 0
+        },
+        "strokeJoin": {
+          "enum": [
+            "BEVEL",
+            "MITER",
+            "ROUND"
+          ],
+          "type": "string"
+        },
+        "strokeAlign": {
+          "enum": [
+            "CENTER",
+            "INSIDE",
+            "OUTSIDE"
+          ],
+          "type": "string"
+        },
+        "dashPattern": {
+          "$ref": "#/$defs/native-ReadonlyArray_2"
+        },
+        "strokeTopWeight": {
+          "type": "number"
+        },
+        "strokeBottomWeight": {
+          "type": "number"
+        },
+        "strokeLeftWeight": {
+          "type": "number"
+        },
+        "strokeRightWeight": {
+          "type": "number"
+        },
+        "variableWidthStrokeProperties": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/native-PresetVariableWidthStrokeProperties"
+            },
+            {
+              "$ref": "#/$defs/native-CustomVariableWidthStrokeProperties"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "complexStrokeProperties": {
+          "$ref": "#/$defs/native-ComplexStrokeProperties"
+        },
+        "strokeCap": {
+          "$ref": "#/$defs/native-StrokeCap"
+        },
+        "strokeMiterLimit": {
+          "type": "number"
+        }
+      }
+    },
+    "native-ReadonlyArray_1": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-Paint"
+      }
+    },
+    "native-ReadonlyArray_2": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "native-PresetVariableWidthStrokeProperties": {
+      "type": "object",
+      "properties": {
+        "widthProfile": {
+          "enum": [
+            "EYE",
+            "MIRRORED_TAPER",
+            "QUARTER_TAPER",
+            "TAPER",
+            "UNIFORM",
+            "WEDGE"
+          ],
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "widthProfile"
+      ]
+    },
+    "native-CustomVariableWidthStrokeProperties": {
+      "type": "object",
+      "properties": {
+        "widthProfile": {
+          "type": "string",
+          "const": "CUSTOM"
+        },
+        "variableWidthPoints": {
+          "$ref": "#/$defs/native-ReadonlyArray_3"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "variableWidthPoints",
+        "widthProfile"
+      ]
+    },
+    "native-ReadonlyArray_3": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-VariableWidthPoint"
+      }
+    },
+    "native-VariableWidthPoint": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "position",
+        "width"
+      ]
+    },
+    "native-ComplexStrokeProperties": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "BASIC"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "$ref": "#/$defs/native-DynamicStrokeProperties"
+        },
+        {
+          "$ref": "#/$defs/native-StretchBrushProperties"
+        },
+        {
+          "$ref": "#/$defs/native-ScatterBrushProperties"
+        }
+      ]
+    },
+    "native-DynamicStrokeProperties": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "DYNAMIC"
+        },
+        "frequency": {
+          "type": "number"
+        },
+        "wiggle": {
+          "type": "number"
+        },
+        "smoothen": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "frequency",
+        "smoothen",
+        "type",
+        "wiggle"
+      ]
+    },
+    "native-StretchBrushProperties": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "BRUSH"
+        },
+        "brushType": {
+          "type": "string",
+          "const": "STRETCH"
+        },
+        "brushName": {
+          "enum": [
+            "BIOPIC",
+            "BLOCKBUSTER",
+            "CUSTOM",
+            "EPIC",
+            "GRINDHOUSE",
+            "HARDBOILED",
+            "HEIST",
+            "MELODRAMA",
+            "NEW_WAVE",
+            "NOIR",
+            "PROPAGANDA",
+            "ROM_COM",
+            "SCREWBALL",
+            "SLASHER",
+            "SPAGHETTI_WESTERN",
+            "VERITE"
+          ],
+          "type": "string"
+        },
+        "direction": {
+          "enum": [
+            "BACKWARD",
+            "FORWARD"
+          ],
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "brushName",
+        "brushType",
+        "direction",
+        "type"
+      ]
+    },
+    "native-ScatterBrushProperties": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "BRUSH"
+        },
+        "brushType": {
+          "type": "string",
+          "const": "SCATTER"
+        },
+        "brushName": {
+          "enum": [
+            "BUBBLEGUM",
+            "CUSTOM",
+            "DOO_WOP",
+            "DRONE",
+            "HONKY_TONK",
+            "OI",
+            "SCREAMO",
+            "SHOEGAZE",
+            "SPOKEN_WORD",
+            "VAPORWAVE",
+            "WITCH_HOUSE"
+          ],
+          "type": "string"
+        },
+        "gap": {
+          "type": "number"
+        },
+        "wiggle": {
+          "type": "number"
+        },
+        "sizeJitter": {
+          "type": "number"
+        },
+        "angularJitter": {
+          "type": "number"
+        },
+        "rotation": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "angularJitter",
+        "brushName",
+        "brushType",
+        "gap",
+        "rotation",
+        "sizeJitter",
+        "type",
+        "wiggle"
+      ]
+    },
+    "native-StrokeCap": {
+      "enum": [
+        "ARROW_EQUILATERAL",
+        "ARROW_LINES",
+        "CIRCLE_FILLED",
+        "DIAMOND_FILLED",
+        "NONE",
+        "ROUND",
+        "SQUARE",
+        "TRIANGLE_FILLED"
+      ],
+      "type": "string"
+    },
+    "shape-6f019c01d360": {
+      "type": "object",
+      "properties": {
+        "cornerRadius": {
+          "type": "number"
+        },
+        "cornerSmoothing": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "topLeftRadius": {
+          "type": "number"
+        },
+        "topRightRadius": {
+          "type": "number"
+        },
+        "bottomLeftRadius": {
+          "type": "number"
+        },
+        "bottomRightRadius": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "native-CornerPreset": {
+      "$ref": "#/$defs/shape-6f019c01d360"
+    },
+    "native-LayoutPreset": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "layoutMode": {
+          "enum": [
+            "GRID",
+            "HORIZONTAL",
+            "NONE",
+            "VERTICAL"
+          ],
+          "type": "string"
+        },
+        "paddingLeft": {
+          "type": "number"
+        },
+        "paddingRight": {
+          "type": "number"
+        },
+        "paddingTop": {
+          "type": "number"
+        },
+        "paddingBottom": {
+          "type": "number"
+        },
+        "horizontalPadding": {
+          "type": "number"
+        },
+        "verticalPadding": {
+          "type": "number"
+        },
+        "primaryAxisSizingMode": {
+          "enum": [
+            "AUTO",
+            "FIXED"
+          ],
+          "type": "string"
+        },
+        "counterAxisSizingMode": {
+          "enum": [
+            "AUTO",
+            "FIXED"
+          ],
+          "type": "string"
+        },
+        "strokesIncludedInLayout": {
+          "type": "boolean"
+        },
+        "layoutWrap": {
+          "enum": [
+            "NO_WRAP",
+            "WRAP"
+          ],
+          "type": "string"
+        },
+        "primaryAxisAlignItems": {
+          "enum": [
+            "CENTER",
+            "MAX",
+            "MIN",
+            "SPACE_AROUND",
+            "SPACE_BETWEEN",
+            "SPACE_EVENLY"
+          ],
+          "type": "string"
+        },
+        "counterAxisAlignItems": {
+          "enum": [
+            "BASELINE",
+            "CENTER",
+            "MAX",
+            "MIN"
+          ],
+          "type": "string"
+        },
+        "counterAxisAlignContent": {
+          "enum": [
+            "AUTO",
+            "SPACE_BETWEEN"
+          ],
+          "type": "string"
+        },
+        "itemSpacing": {
+          "type": "number"
+        },
+        "counterAxisSpacing": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "itemReverseZIndex": {
+          "type": "boolean"
+        },
+        "gridRowCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "gridColumnCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "gridRowGap": {
+          "type": "number"
+        },
+        "gridColumnGap": {
+          "type": "number"
+        },
+        "gridRowSizes": {
+          "$ref": "#/$defs/native-Array"
+        },
+        "gridColumnSizes": {
+          "$ref": "#/$defs/native-Array"
+        },
+        "gridAutoTracks": {
+          "enum": [
+            "NONE",
+            "ROWS"
+          ],
+          "type": "string"
+        },
+        "gridItemsPositioning": {
+          "enum": [
+            "MANUAL",
+            "ROW_AUTO_FLOW"
+          ],
+          "type": "string"
+        },
+        "layoutAlign": {
+          "enum": [
+            "CENTER",
+            "INHERIT",
+            "MAX",
+            "MIN",
+            "STRETCH"
+          ],
+          "type": "string"
+        },
+        "layoutGrow": {
+          "type": "number"
+        },
+        "layoutPositioning": {
+          "enum": [
+            "ABSOLUTE",
+            "AUTO"
+          ],
+          "type": "string"
+        },
+        "gridRowAnchorIndex": {
+          "type": "number"
+        },
+        "gridColumnAnchorIndex": {
+          "type": "number"
+        },
+        "gridRowSpan": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "gridColumnSpan": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "gridChildHorizontalAlign": {
+          "enum": [
+            "AUTO",
+            "CENTER",
+            "MAX",
+            "MIN"
+          ],
+          "type": "string"
+        },
+        "gridChildVerticalAlign": {
+          "enum": [
+            "AUTO",
+            "CENTER",
+            "MAX",
+            "MIN"
+          ],
+          "type": "string"
+        },
+        "layoutSizingHorizontal": {
+          "enum": [
+            "FILL",
+            "FIXED",
+            "HUG"
+          ],
+          "type": "string"
+        },
+        "layoutSizingVertical": {
+          "enum": [
+            "FILL",
+            "FIXED",
+            "HUG"
+          ],
+          "type": "string"
+        },
+        "minWidth": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "maxWidth": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "minHeight": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "maxHeight": {
+          "type": [
+            "null",
+            "number"
+          ]
+        }
+      }
+    },
+    "native-Array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-GridTrackSize"
+      }
+    },
+    "native-GridTrackSize": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "type": {
+          "enum": [
+            "FIXED",
+            "FLEX",
+            "HUG"
+          ],
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ]
+    },
+    "native-MotionEasing": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "BOUNCY",
+            "CUSTOM_CUBIC_BEZIER",
+            "CUSTOM_SPRING",
+            "EASE_IN",
+            "EASE_IN_AND_OUT",
+            "EASE_IN_AND_OUT_BACK",
+            "EASE_IN_BACK",
+            "EASE_OUT",
+            "EASE_OUT_BACK",
+            "GENTLE",
+            "HOLD",
+            "LINEAR",
+            "QUICK",
+            "SLOW"
+          ],
+          "type": "string"
+        },
+        "easingFunctionCubicBezier": {
+          "$ref": "#/$defs/native-EasingFunctionBezier"
+        },
+        "easingFunctionSpring": {
+          "$ref": "#/$defs/native-NormalizedSpring"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ]
+    },
+    "native-EasingFunctionBezier": {
+      "$ref": "#/$defs/native-EasingFunctionBezier_1"
+    },
+    "native-EasingFunctionBezier_1": {
+      "type": "object",
+      "properties": {
+        "x1": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "y1": {
+          "type": "number"
+        },
+        "x2": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "y2": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "x1",
+        "x2",
+        "y1",
+        "y2"
+      ]
+    },
+    "native-NormalizedSpring": {
+      "$ref": "#/$defs/native-NormalizedSpring_1"
+    },
+    "native-NormalizedSpring_1": {
+      "type": "object",
+      "properties": {
+        "bounce": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "bounce"
+      ]
+    },
+    "native-PhysicalSpring": {
+      "type": "object",
+      "properties": {
+        "mass": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0
+        },
+        "stiffness": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMinimum": 0
+        },
+        "damping": {
+          "type": "number",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "damping",
+        "mass",
+        "stiffness"
+      ]
+    },
+    "shape-f478a21f7eb8": {
+      "type": "object",
+      "properties": {
+        "animationEntries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/native-AppliedFigmaAnimationStyle"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "animationEntries"
+      ]
+    },
+    "native-AppliedFigmaAnimationStyle": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "FIGMA"
+        },
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "number",
+          "minimum": 0
+        },
+        "timelineOffset": {
+          "type": "number"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/native-AnimationStylePropValue"
+          }
+        },
+        "asset": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "type",
+        "asset"
+      ]
+    },
+    "native-AnimationStylePropValue": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/native-MotionEasing"
+        },
+        {
+          "$ref": "#/$defs/native-VariableAlias"
+        },
+        {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        }
+      ]
+    },
+    "native-StyleData_1": {
+      "$ref": "#/$defs/shape-f478a21f7eb8"
+    },
+    "native-FigmaAnimationStyleConfiguration": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "FIGMA",
+          "type": "string"
+        },
+        "duration": {
+          "type": "number",
+          "minimum": 0
+        },
+        "timelineOffset": {
+          "type": "number"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/native-AnimationStylePropValue"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "native-CustomAnimationStyleConfiguration": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "CUSTOM"
+        },
+        "timelineOffset": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type"
+      ]
+    },
+    "native-VectorNetwork": {
+      "type": "object",
+      "properties": {
+        "vertices": {
+          "$ref": "#/$defs/native-ReadonlyArray_4"
+        },
+        "segments": {
+          "$ref": "#/$defs/native-ReadonlyArray_5"
+        },
+        "regions": {
+          "$ref": "#/$defs/native-ReadonlyArray_6"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "segments",
+        "vertices"
+      ]
+    },
+    "native-ReadonlyArray_4": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-VectorVertex"
+      }
+    },
+    "native-VectorVertex": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "strokeCap": {
+          "$ref": "#/$defs/native-StrokeCap"
+        },
+        "strokeJoin": {
+          "$ref": "#/$defs/native-StrokeJoin"
+        },
+        "cornerRadius": {
+          "type": "number"
+        },
+        "handleMirroring": {
+          "$ref": "#/$defs/native-HandleMirroring"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y"
+      ]
+    },
+    "native-StrokeJoin": {
+      "enum": [
+        "BEVEL",
+        "MITER",
+        "ROUND"
+      ],
+      "type": "string"
+    },
+    "native-HandleMirroring": {
+      "enum": [
+        "ANGLE",
+        "ANGLE_AND_LENGTH",
+        "NONE"
+      ],
+      "type": "string"
+    },
+    "native-ReadonlyArray_5": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-VectorSegment"
+      }
+    },
+    "native-VectorSegment": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "number"
+        },
+        "end": {
+          "type": "number"
+        },
+        "tangentStart": {
+          "$ref": "#/$defs/native-Vector_1"
+        },
+        "tangentEnd": {
+          "$ref": "#/$defs/native-Vector_1"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "end",
+        "start"
+      ]
+    },
+    "native-ReadonlyArray_6": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-VectorRegion"
+      }
+    },
+    "native-VectorRegion": {
+      "type": "object",
+      "properties": {
+        "windingRule": {
+          "$ref": "#/$defs/native-WindingRule"
+        },
+        "loops": {
+          "$ref": "#/$defs/native-ReadonlyArray_7"
+        },
+        "fills": {
+          "$ref": "#/$defs/native-ReadonlyArray_1"
+        },
+        "fillStyle": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "loops",
+        "windingRule"
+      ]
+    },
+    "native-WindingRule": {
+      "enum": [
+        "EVENODD",
+        "NONZERO"
+      ],
+      "type": "string"
+    },
+    "native-ReadonlyArray_7": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      }
+    },
+    "rest-EmojiPaint": {
+      "type": "object",
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+        },
+        "type": {
+          "const": "EMOJI"
+        },
+        "asset": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            "dependency": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false
+        },
+        "emoji": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "blendMode": {
+          "$ref": "#/$defs/native-BlendMode"
+        }
+      },
+      "required": [
+        "itemId",
+        "type",
+        "asset"
+      ],
+      "additionalProperties": false
+    },
+    "type-boolean": {
+      "type": "boolean"
+    },
+    "type-string": {
+      "type": "string"
+    },
+    "type-number": {
+      "type": "number"
+    },
+    "type-timing": {
+      "type": "number",
+      "minimum": 0
+    },
+    "type-ratio": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "type-color": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "srgb",
+                "display-p3"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "enum": [
+                "hsl",
+                "hsb"
+              ]
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklab"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "space": {
+              "const": "oklch"
+            },
+            "channels": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "exclusiveMaximum": 360
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "required": [
+            "space",
+            "channels",
+            "alpha"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "type-length": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "unit": {
+          "enum": [
+            "px"
+          ]
+        }
+      },
+      "required": [
+        "amount",
+        "unit"
+      ],
+      "additionalProperties": false
+    },
+    "type-angle": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "unit": {
+          "enum": [
+            "deg",
+            "rad"
+          ]
+        }
+      },
+      "required": [
+        "amount",
+        "unit"
+      ],
+      "additionalProperties": false
+    },
+    "type-duration": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "enum": [
+            "ms",
+            "s"
+          ]
+        }
+      },
+      "required": [
+        "amount",
+        "unit"
+      ],
+      "additionalProperties": false
+    },
+    "type-point": {
+      "type": "object",
+      "properties": {
+        "space": {
+          "enum": [
+            "pixels",
+            "normalized"
+          ]
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "space",
+        "x",
+        "y"
+      ],
+      "additionalProperties": false
+    },
+    "type-transform": {
+      "type": "object",
+      "properties": {
+        "space": {
+          "enum": [
+            "pixels",
+            "normalized"
+          ]
+        },
+        "matrix": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            },
+            {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 3,
+              "maxItems": 3
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "space",
+        "matrix"
+      ],
+      "additionalProperties": false
+    },
+    "type-paint": {
+      "$ref": "#/$defs/native-Paint"
+    },
+    "type-paintStack": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-Paint"
+      }
+    },
+    "type-effect": {
+      "$ref": "#/$defs/native-Effect"
+    },
+    "type-effectStack": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-Effect"
+      }
+    },
+    "type-layoutGrid": {
+      "$ref": "#/$defs/native-LayoutGrid"
+    },
+    "type-gridStack": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/native-LayoutGrid"
+      }
+    },
+    "type-textStyle": {
+      "$ref": "#/$defs/native-StyleData"
+    },
+    "type-textProperties": {
+      "$ref": "#/$defs/native-TextPreset"
+    },
+    "type-stroke": {
+      "$ref": "#/$defs/native-StrokePreset"
+    },
+    "type-corners": {
+      "$ref": "#/$defs/native-CornerPreset"
+    },
+    "type-layoutProperties": {
+      "$ref": "#/$defs/native-LayoutPreset"
+    },
+    "type-easing": {
+      "$ref": "#/$defs/native-MotionEasing"
+    },
+    "type-spring": {
+      "$ref": "#/$defs/native-PhysicalSpring"
+    },
+    "type-motionStyle": {
+      "$ref": "#/$defs/native-StyleData_1"
+    },
+    "type-motionProperties": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/native-FigmaAnimationStyleConfiguration"
+        },
+        {
+          "$ref": "#/$defs/native-CustomAnimationStyleConfiguration"
+        }
+      ]
+    },
+    "type-vectorArtwork": {
+      "$ref": "#/$defs/native-VectorNetwork"
+    }
+  }
+}

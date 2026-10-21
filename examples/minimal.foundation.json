@@ -1,0 +1,16 @@
+{
+  "format": "figma-foundations",
+  "formatVersion": "0.1.0",
+  "package": { "id": "hello-foundations", "name": "Hello Foundations", "version": "1.0.0" },
+  "dependencies": {},
+  "resources": {
+    "brand-blue": {
+      "kind": "value",
+      "name": "Brand blue",
+      "dataType": "color",
+      "expression": { "literal": { "space": "srgb", "channels": [0.1, 0.3, 0.9], "alpha": 1 } }
+    }
+  },
+  "organization": [],
+  "sources": {}
+}

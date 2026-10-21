@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ffs:0.1.0:resources",
+  "type": "object",
+  "propertyNames": {
+    "type": "string",
+    "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+  },
+  "additionalProperties": {
+    "$ref": "urn:ffs:0.1.0:package#/$defs/resource"
+  }
+}

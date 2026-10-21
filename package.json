@@ -1,0 +1,40 @@
+{
+  "name": "figma-foundations-schema",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "description": "Figma Foundations Schema, specification and reference validator",
+  "repository": { "type": "git", "url": "https://github.com/iamjdimitrov/figma-foundations-schema.git" },
+  "homepage": "https://github.com/iamjdimitrov/figma-foundations-schema#readme",
+  "bugs": { "url": "https://github.com/iamjdimitrov/figma-foundations-schema/issues" },
+  "keywords": ["figma", "design-system", "schema", "design-tokens", "json-schema"],
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./schema": "./schemas/0.1.0/package.schema.json"
+  },
+  "bin": {
+    "ffs": "./src/cli.js"
+  },
+  "scripts": {
+    "build": "node tools/build-schemas.js",
+    "test": "node --test",
+    "check": "node tools/check.js",
+    "check:generated": "node tools/verify-generated.js",
+    "check:docs": "node tools/check-docs.js",
+    "release:bundle": "node tools/release.js",
+    "verify": "npm test && npm run check && npm run check:generated && npm run check:docs",
+    "validate": "node src/cli.js validate",
+    "resolve": "node src/cli.js resolve"
+  },
+  "dependencies": {
+    "ajv": "8.20.0"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "1.142.0",
+    "typescript-json-schema": "0.68.0"
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "format": "figma-foundations",
+  "formatVersion": "0.1.0",
+  "package": {
+    "id": "example-foundations",
+    "name": "Example Foundations",
+    "version": "1.0.0"
+  },
+  "dependencies": {},
+  "resources": {
+    "color-white": {
+      "kind": "value",
+      "name": "White",
+      "dataType": "color",
+      "expression": {
+        "literal": {
+          "space": "srgb",
+          "channels": [
+            1,
+            1,
+            1
+          ],
+          "alpha": 1
+        }
+      }
+    },
+    "color-ink": {
+      "kind": "value",
+      "name": "Ink",
+      "dataType": "color",
+      "expression": {
+        "literal": {
+          "space": "srgb",
+          "channels": [
+            0.06,
+            0.06,
+            0.08
+          ],
+          "alpha": 1
+        }
+      }
+    },
+    "appearance": {
+      "kind": "collection",
+      "name": "Appearance",
+      "modes": {
+        "day": {
+          "name": "Light"
+        },
+        "night": {
+          "name": "Dark"
+        }
+      },
+      "defaultMode": "day"
+    },
+    "surface-color": {
+      "kind": "variable",
+      "name": "Surface / Canvas",
+      "description": "Canvas color, selected by the Appearance collection mode.",
+      "dataType": "color",
+      "collection": {
+        "resource": "appearance"
+      },
+      "values": {
+        "day": {
+          "ref": {
+            "resource": "color-white"
+          }
+        }
+      },
+      "scopes": [
+        "FRAME_FILL"
+      ],
+      "codeSyntax": {
+        "WEB": "var(--surface-canvas)"
+      }
+    },
+    "canvas-style": {
+      "kind": "style",
+      "name": "Canvas",
+      "family": "paint",
+      "expression": {
+        "list": [
+          {
+            "record": {
+              "type": {
+                "literal": "SOLID"
+              },
+              "visible": {
+                "literal": true
+              },
+              "opacity": {
+                "literal": 1
+              },
+              "blendMode": {
+                "literal": "NORMAL"
+              },
+              "color": {
+                "bind": {
+                  "variable": "surface-color"
+                }
+              },
+              "itemId": {
+                "literal": "base-paint"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "space-standard": {
+      "kind": "value",
+      "name": "Standard spacing",
+      "dataType": "length",
+      "expression": {
+        "literal": {
+          "amount": 16,
+          "unit": "px"
+        }
+      }
+    },
+    "theme-light": {
+      "kind": "theme",
+      "name": "Light",
+      "selections": [
+        {
+          "collection": {
+            "resource": "appearance"
+          },
+          "mode": "day"
+        }
+      ]
+    },
+    "theme-dark": {
+      "kind": "theme",
+      "name": "Dark",
+      "selections": [
+        {
+          "collection": {
+            "resource": "appearance"
+          },
+          "mode": "night"
+        }
+      ]
+    }
+  },
+  "organization": [
+    {
+      "id": "group-colors",
+      "name": "Colors",
+      "children": [
+        {
+          "resource": "color-white"
+        },
+        {
+          "resource": "color-ink"
+        },
+        {
+          "resource": "surface-color"
+        }
+      ]
+    },
+    {
+      "resource": "canvas-style"
+    },
+    {
+      "resource": "space-standard"
+    }
+  ],
+  "sources": {}
+}

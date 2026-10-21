@@ -1,0 +1,24 @@
+name: Format proposal
+description: Propose a Figma foundation capability or a change to the contract.
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Capability and use case
+      description: Explain the real authoring need and link the official Figma documentation where relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: representation
+    attributes:
+      label: Proposed representation
+      description: Give an example and explain effects on identity, references, modes, and validation.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility and migration
+      description: Does this change existing files or resolved values? How would older consumers handle it?
+    validations:
+      required: true

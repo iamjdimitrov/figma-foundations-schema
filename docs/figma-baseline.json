@@ -1,0 +1,1412 @@
+{
+  "reviewedOn": "2026-10-20",
+  "package": "@figma/plugin-typings",
+  "version": "1.142.0",
+  "sha256": "46685808f4994664397367ff855ff87619f8177370da572f7d3acfd2553dc95a",
+  "source": "https://github.com/figma/plugin-typings",
+  "types": [
+    {
+      "nativeType": "SolidPaint",
+      "fields": [
+        "type",
+        "color",
+        "visible",
+        "opacity",
+        "blendMode",
+        "boundVariables"
+      ],
+      "required": [
+        "color",
+        "type"
+      ]
+    },
+    {
+      "nativeType": "RGBWithColorSpace",
+      "fields": [
+        "sourceColor",
+        "r",
+        "g",
+        "b"
+      ],
+      "required": [
+        "b",
+        "g",
+        "r"
+      ]
+    },
+    {
+      "nativeType": "{color?:VariableAlias|undefined;}",
+      "fields": [
+        "color"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "VariableAlias",
+      "fields": [
+        "type",
+        "id"
+      ],
+      "required": [
+        "id",
+        "type"
+      ]
+    },
+    {
+      "nativeType": "GradientPaint",
+      "fields": [
+        "type",
+        "gradientTransform",
+        "gradientStops",
+        "visible",
+        "opacity",
+        "blendMode"
+      ],
+      "required": [
+        "gradientStops",
+        "gradientTransform",
+        "type"
+      ]
+    },
+    {
+      "nativeType": "ColorStop",
+      "fields": [
+        "position",
+        "color",
+        "boundVariables"
+      ],
+      "required": [
+        "color",
+        "position"
+      ]
+    },
+    {
+      "nativeType": "RGBAWithColorSpace",
+      "fields": [
+        "sourceColor",
+        "r",
+        "g",
+        "b",
+        "a"
+      ],
+      "required": [
+        "a",
+        "b",
+        "g",
+        "r"
+      ]
+    },
+    {
+      "nativeType": "{color?:VariableAlias|undefined;}_1",
+      "fields": [
+        "color"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "ImagePaint",
+      "fields": [
+        "type",
+        "scaleMode",
+        "imageHash",
+        "imageTransform",
+        "scalingFactor",
+        "rotation",
+        "filters",
+        "visible",
+        "opacity",
+        "blendMode"
+      ],
+      "required": [
+        "imageHash",
+        "scaleMode",
+        "type"
+      ]
+    },
+    {
+      "nativeType": "ImageFilters_1",
+      "fields": [
+        "exposure",
+        "contrast",
+        "saturation",
+        "temperature",
+        "tint",
+        "highlights",
+        "shadows"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "VideoPaint",
+      "fields": [
+        "type",
+        "scaleMode",
+        "videoHash",
+        "videoTransform",
+        "scalingFactor",
+        "rotation",
+        "filters",
+        "visible",
+        "opacity",
+        "blendMode"
+      ],
+      "required": [
+        "scaleMode",
+        "type",
+        "videoHash"
+      ]
+    },
+    {
+      "nativeType": "PatternPaint",
+      "fields": [
+        "type",
+        "sourceNodeId",
+        "tileType",
+        "scalingFactor",
+        "spacing",
+        "horizontalAlignment",
+        "visible",
+        "opacity",
+        "blendMode"
+      ],
+      "required": [
+        "horizontalAlignment",
+        "scalingFactor",
+        "sourceNodeId",
+        "spacing",
+        "tileType",
+        "type"
+      ]
+    },
+    {
+      "nativeType": "Vector",
+      "fields": [
+        "x",
+        "y"
+      ],
+      "required": [
+        "x",
+        "y"
+      ]
+    },
+    {
+      "nativeType": "ShaderPaint",
+      "fields": [
+        "type",
+        "id",
+        "properties",
+        "propertyMetadata",
+        "visible",
+        "opacity",
+        "blendMode"
+      ],
+      "required": [
+        "id",
+        "type"
+      ]
+    },
+    {
+      "nativeType": "RGB",
+      "fields": [
+        "r",
+        "g",
+        "b"
+      ],
+      "required": [
+        "b",
+        "g",
+        "r"
+      ]
+    },
+    {
+      "nativeType": "RGBA",
+      "fields": [
+        "r",
+        "g",
+        "b",
+        "a"
+      ],
+      "required": [
+        "a",
+        "b",
+        "g",
+        "r"
+      ]
+    },
+    {
+      "nativeType": "ShaderPropertyDefinition",
+      "fields": [
+        "name",
+        "type",
+        "defaultValue",
+        "description"
+      ],
+      "required": [
+        "name",
+        "type"
+      ]
+    },
+    {
+      "nativeType": "DropShadowEffect",
+      "fields": [
+        "type",
+        "color",
+        "offset",
+        "radius",
+        "spread",
+        "visible",
+        "blendMode",
+        "showShadowBehindNode",
+        "boundVariables"
+      ],
+      "required": [
+        "blendMode",
+        "color",
+        "offset",
+        "radius",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "{color?:VariableAlias|undefined;radius?:VariableAlias|undefined;spread?:VariableAlias|undefined;offsetX?:VariableAlias|undefined;offsetY?:VariableAlias|undefined;}",
+      "fields": [
+        "color",
+        "radius",
+        "spread",
+        "offsetX",
+        "offsetY"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "InnerShadowEffect",
+      "fields": [
+        "type",
+        "color",
+        "offset",
+        "radius",
+        "spread",
+        "visible",
+        "blendMode",
+        "boundVariables"
+      ],
+      "required": [
+        "blendMode",
+        "color",
+        "offset",
+        "radius",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "{color?:VariableAlias|undefined;radius?:VariableAlias|undefined;spread?:VariableAlias|undefined;offsetX?:VariableAlias|undefined;offsetY?:VariableAlias|undefined;}_1",
+      "fields": [
+        "color",
+        "radius",
+        "spread",
+        "offsetX",
+        "offsetY"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "BlurEffectNormal",
+      "fields": [
+        "blurType",
+        "type",
+        "radius",
+        "visible",
+        "boundVariables"
+      ],
+      "required": [
+        "blurType",
+        "radius",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "BlurEffectProgressive",
+      "fields": [
+        "blurType",
+        "startRadius",
+        "startOffset",
+        "endOffset",
+        "type",
+        "radius",
+        "visible",
+        "boundVariables"
+      ],
+      "required": [
+        "blurType",
+        "endOffset",
+        "radius",
+        "startOffset",
+        "startRadius",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "NoiseEffectMonotone",
+      "fields": [
+        "noiseType",
+        "type",
+        "color",
+        "visible",
+        "blendMode",
+        "noiseSize",
+        "noiseSizeVector",
+        "density",
+        "boundVariables"
+      ],
+      "required": [
+        "blendMode",
+        "color",
+        "density",
+        "noiseSize",
+        "noiseType",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "NoiseEffectDuotone",
+      "fields": [
+        "noiseType",
+        "secondaryColor",
+        "type",
+        "color",
+        "visible",
+        "blendMode",
+        "noiseSize",
+        "noiseSizeVector",
+        "density",
+        "boundVariables"
+      ],
+      "required": [
+        "blendMode",
+        "color",
+        "density",
+        "noiseSize",
+        "noiseType",
+        "secondaryColor",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "NoiseEffectMultitone",
+      "fields": [
+        "noiseType",
+        "opacity",
+        "type",
+        "color",
+        "visible",
+        "blendMode",
+        "noiseSize",
+        "noiseSizeVector",
+        "density",
+        "boundVariables"
+      ],
+      "required": [
+        "blendMode",
+        "color",
+        "density",
+        "noiseSize",
+        "noiseType",
+        "opacity",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "TextureEffect",
+      "fields": [
+        "type",
+        "visible",
+        "noiseSize",
+        "noiseSizeVector",
+        "radius",
+        "clipToShape",
+        "boundVariables"
+      ],
+      "required": [
+        "clipToShape",
+        "noiseSize",
+        "radius",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "GlassEffect",
+      "fields": [
+        "type",
+        "visible",
+        "lightIntensity",
+        "lightAngle",
+        "refraction",
+        "depth",
+        "dispersion",
+        "radius",
+        "boundVariables"
+      ],
+      "required": [
+        "depth",
+        "dispersion",
+        "lightAngle",
+        "lightIntensity",
+        "radius",
+        "refraction",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "ShaderEffect",
+      "fields": [
+        "type",
+        "visible",
+        "id",
+        "properties",
+        "propertyMetadata"
+      ],
+      "required": [
+        "id",
+        "type",
+        "visible"
+      ]
+    },
+    {
+      "nativeType": "RowsColsLayoutGrid",
+      "fields": [
+        "pattern",
+        "alignment",
+        "gutterSize",
+        "count",
+        "sectionSize",
+        "offset",
+        "visible",
+        "color",
+        "boundVariables"
+      ],
+      "required": [
+        "alignment",
+        "count",
+        "gutterSize",
+        "pattern"
+      ]
+    },
+    {
+      "nativeType": "{sectionSize?:VariableAlias|undefined;count?:VariableAlias|undefined;offset?:VariableAlias|undefined;gutterSize?:VariableAlias|undefined;}",
+      "fields": [
+        "sectionSize",
+        "count",
+        "offset",
+        "gutterSize"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "GridLayoutGrid",
+      "fields": [
+        "pattern",
+        "sectionSize",
+        "visible",
+        "color",
+        "boundVariables"
+      ],
+      "required": [
+        "pattern",
+        "sectionSize"
+      ]
+    },
+    {
+      "nativeType": "__type",
+      "fields": [
+        "fontSize",
+        "fontName",
+        "textCase",
+        "textDecoration",
+        "letterSpacing",
+        "lineHeight",
+        "leadingTrim",
+        "paragraphIndent",
+        "paragraphSpacing",
+        "listSpacing",
+        "hangingPunctuation",
+        "hangingList",
+        "textWrapStyle"
+      ],
+      "required": [
+        "fontName",
+        "fontSize",
+        "hangingList",
+        "hangingPunctuation",
+        "leadingTrim",
+        "letterSpacing",
+        "lineHeight",
+        "listSpacing",
+        "paragraphIndent",
+        "paragraphSpacing",
+        "textCase",
+        "textDecoration",
+        "textWrapStyle"
+      ]
+    },
+    {
+      "nativeType": "FontName",
+      "fields": [
+        "family",
+        "style",
+        "variationSettings"
+      ],
+      "required": [
+        "family",
+        "style"
+      ]
+    },
+    {
+      "nativeType": "LetterSpacing",
+      "fields": [
+        "value",
+        "unit"
+      ],
+      "required": [
+        "unit",
+        "value"
+      ]
+    },
+    {
+      "nativeType": "TextPreset",
+      "fields": [
+        "fontSize",
+        "fontName",
+        "fontWeight",
+        "textCase",
+        "textDecoration",
+        "textDecorationStyle",
+        "textDecorationOffset",
+        "textDecorationThickness",
+        "textDecorationColor",
+        "textDecorationSkipInk",
+        "letterSpacing",
+        "lineHeight",
+        "leadingTrim",
+        "paragraphIndent",
+        "paragraphSpacing",
+        "listSpacing",
+        "hangingPunctuation",
+        "hangingList",
+        "textWrapStyle",
+        "openTypeFeatures",
+        "fontStyle",
+        "textAlignHorizontal",
+        "textAlignVertical",
+        "textAutoResize",
+        "textTruncation",
+        "maxLines",
+        "listOptions",
+        "indentation"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "{readonlyPCAP:boolean;readonlyC2PC:boolean;readonlyCASE:boolean;readonlyCPSP:boolean;readonlyTITL:boolean;readonlyUNIC:boolean;readonlyZERO:boolean;readonlySINF:boolean;readonlyORDN:boolean;readonlyAFRC:boolean;readonlyDNOM:boolean;readonlyNUMR:boolean;readonlyLIGA:boolean;readonlyCLIG:boolean;readonlyDLIG:boolean;readonlyHLIG:boolean;readonlyRLIG:boolean;readonlyAALT:boolean;readonlyCALT:boolean;readonlyRCLT:boolean;readonlySALT:boolean;readonlyRVRN:boolean;readonlyVERT:boolean;readonlySWSH:boolean;readonlyCSWH:boolean;readonlyNALT:boolean;readonlyCCMP:boolean;readonlySTCH:boolean;readonlyHIST:boolean;readonlySIZE:boolean;readonlyORNM:boolean;readonlyITAL:boolean;readonlyRAND:boolean;readonlyDTLS:boolean;readonlyFLAC:boolean;readonlyMGRK:boolean;readonlySSTY:boolean;readonlyKERN:boolean;readonlyFWID:boolean;readonlyHWID:boolean;readonlyHALT:boolean;readonlyTWID:boolean;readonlyQWID:boolean;readonlyPWID:boolean;readonlyJUST:boolean;readonlyLFBD:boolean;readonlyOPBD:boolean;readonlyRTBD:boolean;readonlyPALT:boolean;readonlyPKNA:boolean;readonlyLTRA:boolean;readonlyLTRM:boolean;readonlyRTLA:boolean;readonlyRTLM:boolean;readonlyABRV:boolean;readonlyABVM:boolean;readonlyABVS:boolean;readonlyVALT:boolean;readonlyVHAL:boolean;readonlyBLWF:boolean;readonlyBLWM:boolean;readonlyBLWS:boolean;readonlyAKHN:boolean;readonlyCJCT:boolean;readonlyCFAR:boolean;readonlyCPCT:boolean;readonlyCURS:boolean;readonlyDIST:boolean;readonlyEXPT:boolean;readonlyFALT:boolean;readonlyFINA:boolean;readonlyFIN2:boolean;readonlyFIN3:boolean;readonlyHALF:boolean;readonlyHALN:boolean;readonlyHKNA:boolean;readonlyHNGL:boolean;readonlyHOJO:boolean;readonlyINIT:boolean;readonlyISOL:boolean;readonlyJP78:boolean;readonlyJP83:boolean;readonlyJP90:boolean;readonlyJP04:boolean;readonlyLJMO:boolean;readonlyLOCL:boolean;readonlyMARK:boolean;readonlyMEDI:boolean;readonlyMED2:boolean;readonlyMKMK:boolean;readonlyNLCK:boolean;readonlyNUKT:boolean;readonlyPREF:boolean;readonlyPRES:boolean;readonlyVPAL:boolean;readonlyPSTF:boolean;readonlyPSTS:boolean;readonlyRKRF:boolean;readonlyRPHF:boolean;readonlyRUBY:boolean;readonlySMPL:boolean;readonlyTJMO:boolean;readonlyTNAM:boolean;readonlyTRAD:boolean;readonlyVATU:boolean;readonlyVJMO:boolean;readonlyVKNA:boolean;readonlyVKRN:boolean;readonlyVRTR:boolean;readonlyVRT2:boolean;readonlySS01:boolean;readonlySS02:boolean;readonlySS03:boolean;readonlySS04:boolean;readonlySS05:boolean;readonlySS06:boolean;readonlySS07:boolean;readonlySS08:boolean;readonlySS09:boolean;readonlySS10:boolean;readonlySS11:boolean;readonlySS12:boolean;readonlySS13:boolean;readonlySS14:boolean;readonlySS15:boolean;readonlySS16:boolean;readonlySS17:boolean;readonlySS18:boolean;readonlySS19:boolean;readonlySS20:boolean;readonlyCV01:boolean;readonlyCV02:boolean;readonlyCV03:boolean;readonlyCV04:boolean;readonlyCV05:boolean;readonlyCV06:boolean;readonlyCV07:boolean;readonlyCV08:boolean;readonlyCV09:boolean;readonlyCV10:boolean;readonlyCV11:boolean;readonlyCV12:boolean;readonlyCV13:boolean;readonlyCV14:boolean;readonlyCV15:boolean;readonlyCV16:boolean;readonlyCV17:boolean;readonlyCV18:boolean;readonlyCV19:boolean;readonlyCV20:boolean;readonlyCV21:boolean;readonlyCV22:boolean;readonlyCV23:boolean;readonlyCV24:boolean;readonlyCV25:boolean;readonlyCV26:boolean;readonlyCV27:boolean;readonlyCV28:boolean;readonlyCV29:boolean;readonlyCV30:boolean;readonlyCV31:boolean;readonlyCV32:boolean;readonlyCV33:boolean;readonlyCV34:boolean;readonlyCV35:boolean;readonlyCV36:boolean;readonlyCV37:boolean;readonlyCV38:boolean;readonlyCV39:boolean;readonlyCV40:boolean;readonlyCV41:boolean;readonlyCV42:boolean;readonlyCV43:boolean;readonlyCV44:boolean;readonlyCV45:boolean;readonlyCV46:boolean;readonlyCV47:boolean;readonlyCV48:boolean;readonlyCV49:boolean;readonlyCV50:boolean;readonlyCV51:boolean;readonlyCV52:boolean;readonlyCV53:boolean;readonlyCV54:boolean;readonlyCV55:boolean;readonlyCV56:boolean;readonlyCV57:boolean;readonlyCV58:boolean;readonlyCV59:boolean;readonlyCV60:boolean;readonlyCV61:boolean;readonlyCV62:boolean;readonlyCV63:boolean;readonlyCV64:boolean;readonlyCV65:boolean;readonlyCV66:boolean;readonlyCV67:boolean;readonlyCV68:boolean;readonlyCV69:boolean;readonlyCV70:boolean;readonlyCV71:boolean;readonlyCV72:boolean;readonlyCV73:boolean;readonlyCV74:boolean;readonlyCV75:boolean;readonlyCV76:boolean;readonlyCV77:boolean;readonlyCV78:boolean;readonlyCV79:boolean;readonlyCV80:boolean;readonlyCV81:boolean;readonlyCV82:boolean;readonlyCV83:boolean;readonlyCV84:boolean;readonlyCV85:boolean;readonlyCV86:boolean;readonlyCV87:boolean;readonlyCV88:boolean;readonlyCV89:boolean;readonlyCV90:boolean;readonlyCV91:boolean;readonlyCV92:boolean;readonlyCV93:boolean;readonlyCV94:boolean;readonlyCV95:boolean;readonlyCV96:boolean;readonlyCV97:boolean;readonlyCV98:boolean;readonlyCV99:boolean;}",
+      "fields": [
+        "PCAP",
+        "C2PC",
+        "CASE",
+        "CPSP",
+        "TITL",
+        "UNIC",
+        "ZERO",
+        "SINF",
+        "ORDN",
+        "AFRC",
+        "DNOM",
+        "NUMR",
+        "LIGA",
+        "CLIG",
+        "DLIG",
+        "HLIG",
+        "RLIG",
+        "AALT",
+        "CALT",
+        "RCLT",
+        "SALT",
+        "RVRN",
+        "VERT",
+        "SWSH",
+        "CSWH",
+        "NALT",
+        "CCMP",
+        "STCH",
+        "HIST",
+        "SIZE",
+        "ORNM",
+        "ITAL",
+        "RAND",
+        "DTLS",
+        "FLAC",
+        "MGRK",
+        "SSTY",
+        "KERN",
+        "FWID",
+        "HWID",
+        "HALT",
+        "TWID",
+        "QWID",
+        "PWID",
+        "JUST",
+        "LFBD",
+        "OPBD",
+        "RTBD",
+        "PALT",
+        "PKNA",
+        "LTRA",
+        "LTRM",
+        "RTLA",
+        "RTLM",
+        "ABRV",
+        "ABVM",
+        "ABVS",
+        "VALT",
+        "VHAL",
+        "BLWF",
+        "BLWM",
+        "BLWS",
+        "AKHN",
+        "CJCT",
+        "CFAR",
+        "CPCT",
+        "CURS",
+        "DIST",
+        "EXPT",
+        "FALT",
+        "FINA",
+        "FIN2",
+        "FIN3",
+        "HALF",
+        "HALN",
+        "HKNA",
+        "HNGL",
+        "HOJO",
+        "INIT",
+        "ISOL",
+        "JP78",
+        "JP83",
+        "JP90",
+        "JP04",
+        "LJMO",
+        "LOCL",
+        "MARK",
+        "MEDI",
+        "MED2",
+        "MKMK",
+        "NLCK",
+        "NUKT",
+        "PREF",
+        "PRES",
+        "VPAL",
+        "PSTF",
+        "PSTS",
+        "RKRF",
+        "RPHF",
+        "RUBY",
+        "SMPL",
+        "TJMO",
+        "TNAM",
+        "TRAD",
+        "VATU",
+        "VJMO",
+        "VKNA",
+        "VKRN",
+        "VRTR",
+        "VRT2",
+        "SS01",
+        "SS02",
+        "SS03",
+        "SS04",
+        "SS05",
+        "SS06",
+        "SS07",
+        "SS08",
+        "SS09",
+        "SS10",
+        "SS11",
+        "SS12",
+        "SS13",
+        "SS14",
+        "SS15",
+        "SS16",
+        "SS17",
+        "SS18",
+        "SS19",
+        "SS20",
+        "CV01",
+        "CV02",
+        "CV03",
+        "CV04",
+        "CV05",
+        "CV06",
+        "CV07",
+        "CV08",
+        "CV09",
+        "CV10",
+        "CV11",
+        "CV12",
+        "CV13",
+        "CV14",
+        "CV15",
+        "CV16",
+        "CV17",
+        "CV18",
+        "CV19",
+        "CV20",
+        "CV21",
+        "CV22",
+        "CV23",
+        "CV24",
+        "CV25",
+        "CV26",
+        "CV27",
+        "CV28",
+        "CV29",
+        "CV30",
+        "CV31",
+        "CV32",
+        "CV33",
+        "CV34",
+        "CV35",
+        "CV36",
+        "CV37",
+        "CV38",
+        "CV39",
+        "CV40",
+        "CV41",
+        "CV42",
+        "CV43",
+        "CV44",
+        "CV45",
+        "CV46",
+        "CV47",
+        "CV48",
+        "CV49",
+        "CV50",
+        "CV51",
+        "CV52",
+        "CV53",
+        "CV54",
+        "CV55",
+        "CV56",
+        "CV57",
+        "CV58",
+        "CV59",
+        "CV60",
+        "CV61",
+        "CV62",
+        "CV63",
+        "CV64",
+        "CV65",
+        "CV66",
+        "CV67",
+        "CV68",
+        "CV69",
+        "CV70",
+        "CV71",
+        "CV72",
+        "CV73",
+        "CV74",
+        "CV75",
+        "CV76",
+        "CV77",
+        "CV78",
+        "CV79",
+        "CV80",
+        "CV81",
+        "CV82",
+        "CV83",
+        "CV84",
+        "CV85",
+        "CV86",
+        "CV87",
+        "CV88",
+        "CV89",
+        "CV90",
+        "CV91",
+        "CV92",
+        "CV93",
+        "CV94",
+        "CV95",
+        "CV96",
+        "CV97",
+        "CV98",
+        "CV99"
+      ],
+      "required": [
+        "AALT",
+        "ABRV",
+        "ABVM",
+        "ABVS",
+        "AFRC",
+        "AKHN",
+        "BLWF",
+        "BLWM",
+        "BLWS",
+        "C2PC",
+        "CALT",
+        "CASE",
+        "CCMP",
+        "CFAR",
+        "CJCT",
+        "CLIG",
+        "CPCT",
+        "CPSP",
+        "CSWH",
+        "CURS",
+        "CV01",
+        "CV02",
+        "CV03",
+        "CV04",
+        "CV05",
+        "CV06",
+        "CV07",
+        "CV08",
+        "CV09",
+        "CV10",
+        "CV11",
+        "CV12",
+        "CV13",
+        "CV14",
+        "CV15",
+        "CV16",
+        "CV17",
+        "CV18",
+        "CV19",
+        "CV20",
+        "CV21",
+        "CV22",
+        "CV23",
+        "CV24",
+        "CV25",
+        "CV26",
+        "CV27",
+        "CV28",
+        "CV29",
+        "CV30",
+        "CV31",
+        "CV32",
+        "CV33",
+        "CV34",
+        "CV35",
+        "CV36",
+        "CV37",
+        "CV38",
+        "CV39",
+        "CV40",
+        "CV41",
+        "CV42",
+        "CV43",
+        "CV44",
+        "CV45",
+        "CV46",
+        "CV47",
+        "CV48",
+        "CV49",
+        "CV50",
+        "CV51",
+        "CV52",
+        "CV53",
+        "CV54",
+        "CV55",
+        "CV56",
+        "CV57",
+        "CV58",
+        "CV59",
+        "CV60",
+        "CV61",
+        "CV62",
+        "CV63",
+        "CV64",
+        "CV65",
+        "CV66",
+        "CV67",
+        "CV68",
+        "CV69",
+        "CV70",
+        "CV71",
+        "CV72",
+        "CV73",
+        "CV74",
+        "CV75",
+        "CV76",
+        "CV77",
+        "CV78",
+        "CV79",
+        "CV80",
+        "CV81",
+        "CV82",
+        "CV83",
+        "CV84",
+        "CV85",
+        "CV86",
+        "CV87",
+        "CV88",
+        "CV89",
+        "CV90",
+        "CV91",
+        "CV92",
+        "CV93",
+        "CV94",
+        "CV95",
+        "CV96",
+        "CV97",
+        "CV98",
+        "CV99",
+        "DIST",
+        "DLIG",
+        "DNOM",
+        "DTLS",
+        "EXPT",
+        "FALT",
+        "FIN2",
+        "FIN3",
+        "FINA",
+        "FLAC",
+        "FWID",
+        "HALF",
+        "HALN",
+        "HALT",
+        "HIST",
+        "HKNA",
+        "HLIG",
+        "HNGL",
+        "HOJO",
+        "HWID",
+        "INIT",
+        "ISOL",
+        "ITAL",
+        "JP04",
+        "JP78",
+        "JP83",
+        "JP90",
+        "JUST",
+        "KERN",
+        "LFBD",
+        "LIGA",
+        "LJMO",
+        "LOCL",
+        "LTRA",
+        "LTRM",
+        "MARK",
+        "MED2",
+        "MEDI",
+        "MGRK",
+        "MKMK",
+        "NALT",
+        "NLCK",
+        "NUKT",
+        "NUMR",
+        "OPBD",
+        "ORDN",
+        "ORNM",
+        "PALT",
+        "PCAP",
+        "PKNA",
+        "PREF",
+        "PRES",
+        "PSTF",
+        "PSTS",
+        "PWID",
+        "QWID",
+        "RAND",
+        "RCLT",
+        "RKRF",
+        "RLIG",
+        "RPHF",
+        "RTBD",
+        "RTLA",
+        "RTLM",
+        "RUBY",
+        "RVRN",
+        "SALT",
+        "SINF",
+        "SIZE",
+        "SMPL",
+        "SS01",
+        "SS02",
+        "SS03",
+        "SS04",
+        "SS05",
+        "SS06",
+        "SS07",
+        "SS08",
+        "SS09",
+        "SS10",
+        "SS11",
+        "SS12",
+        "SS13",
+        "SS14",
+        "SS15",
+        "SS16",
+        "SS17",
+        "SS18",
+        "SS19",
+        "SS20",
+        "SSTY",
+        "STCH",
+        "SWSH",
+        "TITL",
+        "TJMO",
+        "TNAM",
+        "TRAD",
+        "TWID",
+        "UNIC",
+        "VALT",
+        "VATU",
+        "VERT",
+        "VHAL",
+        "VJMO",
+        "VKNA",
+        "VKRN",
+        "VPAL",
+        "VRT2",
+        "VRTR",
+        "ZERO"
+      ]
+    },
+    {
+      "nativeType": "__type_1",
+      "fields": [
+        "type"
+      ],
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "nativeType": "StrokePreset",
+      "fields": [
+        "strokes",
+        "strokeWeight",
+        "strokeJoin",
+        "strokeAlign",
+        "dashPattern",
+        "strokeTopWeight",
+        "strokeBottomWeight",
+        "strokeLeftWeight",
+        "strokeRightWeight",
+        "variableWidthStrokeProperties",
+        "complexStrokeProperties",
+        "strokeCap",
+        "strokeMiterLimit"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "PresetVariableWidthStrokeProperties",
+      "fields": [
+        "widthProfile"
+      ],
+      "required": [
+        "widthProfile"
+      ]
+    },
+    {
+      "nativeType": "CustomVariableWidthStrokeProperties",
+      "fields": [
+        "widthProfile",
+        "variableWidthPoints"
+      ],
+      "required": [
+        "variableWidthPoints",
+        "widthProfile"
+      ]
+    },
+    {
+      "nativeType": "VariableWidthPoint",
+      "fields": [
+        "position",
+        "width"
+      ],
+      "required": [
+        "position",
+        "width"
+      ]
+    },
+    {
+      "nativeType": "DynamicStrokeProperties",
+      "fields": [
+        "type",
+        "frequency",
+        "wiggle",
+        "smoothen"
+      ],
+      "required": [
+        "frequency",
+        "smoothen",
+        "type",
+        "wiggle"
+      ]
+    },
+    {
+      "nativeType": "StretchBrushProperties",
+      "fields": [
+        "type",
+        "brushType",
+        "brushName",
+        "direction"
+      ],
+      "required": [
+        "brushName",
+        "brushType",
+        "direction",
+        "type"
+      ]
+    },
+    {
+      "nativeType": "ScatterBrushProperties",
+      "fields": [
+        "type",
+        "brushType",
+        "brushName",
+        "gap",
+        "wiggle",
+        "sizeJitter",
+        "angularJitter",
+        "rotation"
+      ],
+      "required": [
+        "angularJitter",
+        "brushName",
+        "brushType",
+        "gap",
+        "rotation",
+        "sizeJitter",
+        "type",
+        "wiggle"
+      ]
+    },
+    {
+      "nativeType": "__type_2",
+      "fields": [
+        "cornerRadius",
+        "cornerSmoothing",
+        "topLeftRadius",
+        "topRightRadius",
+        "bottomLeftRadius",
+        "bottomRightRadius"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "LayoutPreset",
+      "fields": [
+        "layoutMode",
+        "paddingLeft",
+        "paddingRight",
+        "paddingTop",
+        "paddingBottom",
+        "horizontalPadding",
+        "verticalPadding",
+        "primaryAxisSizingMode",
+        "counterAxisSizingMode",
+        "strokesIncludedInLayout",
+        "layoutWrap",
+        "primaryAxisAlignItems",
+        "counterAxisAlignItems",
+        "counterAxisAlignContent",
+        "itemSpacing",
+        "counterAxisSpacing",
+        "itemReverseZIndex",
+        "gridRowCount",
+        "gridColumnCount",
+        "gridRowGap",
+        "gridColumnGap",
+        "gridRowSizes",
+        "gridColumnSizes",
+        "gridAutoTracks",
+        "gridItemsPositioning",
+        "layoutAlign",
+        "layoutGrow",
+        "layoutPositioning",
+        "gridRowAnchorIndex",
+        "gridColumnAnchorIndex",
+        "gridRowSpan",
+        "gridColumnSpan",
+        "gridChildHorizontalAlign",
+        "gridChildVerticalAlign",
+        "layoutSizingHorizontal",
+        "layoutSizingVertical",
+        "minWidth",
+        "maxWidth",
+        "minHeight",
+        "maxHeight"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "GridTrackSize",
+      "fields": [
+        "value",
+        "type"
+      ],
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "nativeType": "MotionEasing",
+      "fields": [
+        "type",
+        "easingFunctionCubicBezier",
+        "easingFunctionSpring"
+      ],
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "nativeType": "EasingFunctionBezier_1",
+      "fields": [
+        "x1",
+        "y1",
+        "x2",
+        "y2"
+      ],
+      "required": [
+        "x1",
+        "x2",
+        "y1",
+        "y2"
+      ]
+    },
+    {
+      "nativeType": "NormalizedSpring_1",
+      "fields": [
+        "bounce"
+      ],
+      "required": [
+        "bounce"
+      ]
+    },
+    {
+      "nativeType": "PhysicalSpring",
+      "fields": [
+        "mass",
+        "stiffness",
+        "damping"
+      ],
+      "required": [
+        "damping",
+        "mass",
+        "stiffness"
+      ]
+    },
+    {
+      "nativeType": "__type_3",
+      "fields": [
+        "animationEntries"
+      ],
+      "required": [
+        "animationEntries"
+      ]
+    },
+    {
+      "nativeType": "AppliedFigmaAnimationStyle",
+      "fields": [
+        "type",
+        "id",
+        "description",
+        "styleId",
+        "name",
+        "duration",
+        "timelineOffset",
+        "props"
+      ],
+      "required": [
+        "id",
+        "name",
+        "styleId",
+        "type"
+      ]
+    },
+    {
+      "nativeType": "FigmaAnimationStyleConfiguration",
+      "fields": [
+        "type",
+        "duration",
+        "timelineOffset",
+        "props"
+      ],
+      "required": []
+    },
+    {
+      "nativeType": "CustomAnimationStyleConfiguration",
+      "fields": [
+        "type",
+        "timelineOffset"
+      ],
+      "required": [
+        "type"
+      ]
+    },
+    {
+      "nativeType": "VectorNetwork",
+      "fields": [
+        "vertices",
+        "segments",
+        "regions"
+      ],
+      "required": [
+        "segments",
+        "vertices"
+      ]
+    },
+    {
+      "nativeType": "VectorVertex",
+      "fields": [
+        "x",
+        "y",
+        "strokeCap",
+        "strokeJoin",
+        "cornerRadius",
+        "handleMirroring"
+      ],
+      "required": [
+        "x",
+        "y"
+      ]
+    },
+    {
+      "nativeType": "VectorSegment",
+      "fields": [
+        "start",
+        "end",
+        "tangentStart",
+        "tangentEnd"
+      ],
+      "required": [
+        "end",
+        "start"
+      ]
+    },
+    {
+      "nativeType": "VectorRegion",
+      "fields": [
+        "windingRule",
+        "loops",
+        "fills",
+        "fillStyleId"
+      ],
+      "required": [
+        "loops",
+        "windingRule"
+      ]
+    }
+  ]
+}

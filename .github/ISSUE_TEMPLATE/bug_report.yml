@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a validator, schema, documentation, or tooling defect.
+body:
+  - type: markdown
+    attributes:
+      value: "For security vulnerabilities, follow SECURITY.md instead of posting exploit details here. Remove private Figma file keys, tokens, assets, and organization data from examples."
+  - type: input
+    id: version
+    attributes:
+      label: Version and environment
+      placeholder: FFS 0.1.0, Node 24, macOS or Linux
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Include a small public JSON example and the exact command or API call.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+      description: Include the error code and relevant specification section if available.
+    validations:
+      required: true

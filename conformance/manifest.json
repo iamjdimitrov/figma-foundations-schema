@@ -1,0 +1,123 @@
+{
+  "formatVersion": "0.1.0",
+  "cases": [
+    {
+      "file": "../examples/surface.foundation.json",
+      "valid": true
+    },
+    {
+      "file": "../examples/catalog.foundation.json",
+      "valid": true
+    },
+    {
+      "file": "invalid/missing-reference.json",
+      "valid": false,
+      "error": "REFERENCE_MISSING"
+    },
+    {
+      "file": "invalid/inactive-mode-cycle.json",
+      "valid": false,
+      "error": "CYCLE"
+    },
+    {
+      "file": "invalid/missing-mode-value.json",
+      "valid": false,
+      "error": "MODE_MISSING"
+    },
+    {
+      "file": "invalid/unknown-mode-value.json",
+      "valid": false,
+      "error": "MODE_MISSING"
+    },
+    {
+      "file": "invalid/wrong-alias-type.json",
+      "valid": false,
+      "error": "TYPE_MISMATCH"
+    },
+    {
+      "file": "invalid/unrecognized-field.json",
+      "valid": false,
+      "error": "STRUCTURE_INVALID"
+    },
+    {
+      "file": "invalid/unrecognized-type.json",
+      "valid": false,
+      "error": "STRUCTURE_INVALID"
+    },
+    {
+      "file": "invalid/invalid-binding-position.json",
+      "valid": false,
+      "error": "BINDING_INVALID"
+    },
+    {
+      "file": "invalid/variable-binding-in-value.json",
+      "valid": false,
+      "error": "BINDING_INVALID"
+    },
+    {
+      "file": "invalid/missing-pointer.json",
+      "valid": false,
+      "error": "POINTER_MISSING"
+    },
+    {
+      "file": "invalid/bad-pointer-escape.json",
+      "valid": false,
+      "error": "STRUCTURE_INVALID"
+    },
+    {
+      "file": "invalid/required-extension.json",
+      "valid": false,
+      "error": "EXTENSION_REQUIRED"
+    },
+    {
+      "file": "invalid/invalid-alpha.json",
+      "valid": false,
+      "error": "TYPE_MISMATCH"
+    },
+    {
+      "file": "invalid/invalid-theme-mode.json",
+      "valid": false,
+      "error": "MODE_MISSING"
+    },
+    {
+      "file": "invalid/duplicate-selection.json",
+      "valid": false,
+      "error": "MODE_CONFLICT"
+    },
+    {
+      "file": "invalid/invalid-scope.json",
+      "valid": false,
+      "error": "SCOPE_INVALID"
+    },
+    {
+      "file": "invalid/exclusive-scope.json",
+      "valid": false,
+      "error": "SCOPE_INVALID"
+    },
+    {
+      "file": "invalid/unknown-source.json",
+      "valid": false,
+      "error": "SOURCE_MISSING"
+    },
+    {
+      "file": "invalid/duplicate-stack-item.json",
+      "valid": false,
+      "error": "ITEM_DUPLICATE"
+    },
+    {
+      "file": "invalid/wrong-native-enum.json",
+      "valid": false,
+      "error": "TYPE_MISMATCH"
+    },
+    {
+      "file": "invalid/asset-integrity.json",
+      "valid": false,
+      "error": "ASSET_INTEGRITY"
+    },
+    {
+      "file": "invalid/missing-dependency.json",
+      "valid": false,
+      "error": "DEPENDENCY_MISSING"
+    }
+  ]
+}
